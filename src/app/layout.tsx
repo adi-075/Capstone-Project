@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { geistMono, geistSans } from "@/app/ui/fonts";
+import Navbar from "@/components/nav/Nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,10 +15,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>{/* Include Head Components here */}</head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <nav>
+          <Navbar />
+        </nav>
+        {/* Only show the sidebar on medium and large screens  */}
+        <main className="md:ml-64 xl:ml-[250px] xl:px-5 xl:w-full xl:transition-all xl:duration-300 xl:ease-in-out">
+          {children}
+        </main>
       </body>
     </html>
   );
