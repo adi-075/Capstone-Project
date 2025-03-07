@@ -2,25 +2,10 @@
 /* Default Light Mode Styles */
 :root {
   --primary-color: rgb(255, 255, 255); /* White */
-  --secondary-color: rgb(249, 252, 255); /* Light Blue */
-  --background: rgb(255, 247, 249); /* Light Pink */
-  --text: rgb(0, 0, 0); /* Black */
-  --accent: rgb(252, 255, 247); /* Light Yellow */
-}
-
-/* Dark Mode Styles */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-color: rgb(13, 13, 255); /* Blue */
-    --secondary-color: rgb(255, 13, 13); /* Red */
-    --background: rgb(13, 13, 13); /* Black */
-    --text: rgb(255, 255, 255); /* White */
-    --accent: rgb(255, 18, 18); /* Dark Red */
-  }
-  body {
-    background-color: var(--background);
-    color: var(--text);
-  }
+  --secondary-color: rgb(249, 252, 255);
+  --background: #fff;
+  --text: rgb(0, 0, 0);
+  --accent: rgb(252, 255, 247);
 }
 
 /* General Styles */
