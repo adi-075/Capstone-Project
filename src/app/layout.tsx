@@ -23,9 +23,7 @@ export default function RootLayout({
           <Navbar />
         </nav>
         {/* Only show the sidebar on medium and large screens  */}
-        <main className="md:ml-64 xl:ml-[250px] xl:px-5 xl:w-full xl:transition-all xl:duration-300 xl:ease-in-out">
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );
