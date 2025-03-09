@@ -1,7 +1,9 @@
 import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from "react-icons/fi";
+// import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from "react-icons/fi";
+// NOTE: Fixing buildtime errors
+import { FiEye, FiLink, FiPhone, FiPlus } from "react-icons/fi";
 
 export const CommandMenu = ({
     open,
@@ -46,7 +48,7 @@ export const CommandMenu = ({
                 <Command.List className="p-3">
                     <Command.Empty>
                         No results found for{" "}
-                        <span className="text-violet-500">"{value}"</span>
+                        <span className="text-violet-500">&quot;{value}&quot;</span>
                     </Command.Empty>
 
                     <Command.Group heading="Dashboard" className="text-sm mb-3 text-stone-400">

@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} text-stone-950 bg-stone-100`}>
-        <main className="grid gap-4 p-4 grid-cols-[220px_1fr]">
+        <main className="md:grid gap-4 p-4 grid-cols-[220px_1fr]">
           <Sidebar />
           {children}
         </main>

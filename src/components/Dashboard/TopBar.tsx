@@ -1,5 +1,5 @@
 import React from "react";
-import { FiCalendar } from "react-icons/fi";
+// import { FiCalendar } from "react-icons/fi";
 import { getFormattedDate } from "@/app/utils/dateFetch";
 
 export const TopBar = () => {
@@ -7,7 +7,7 @@ export const TopBar = () => {
         <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
             <div className="flex items-center justify-between p-0.5">
                 <div>
-                    <span className="text-2xl font-bold block">🚀 Good to see you, Adi!</span>
+                    <span className="text-2xl font-bold block">🚀 Good day, Aditya!</span>
                     <span className="text-lg block text-stone-500">
                         {getFormattedDate()}
                     </span>

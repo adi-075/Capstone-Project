@@ -2,7 +2,7 @@ import React from "react";
 import { RocketDash } from "./AccountToggle";
 import { Search } from "./Search";
 import { RouteSelect } from "./RouteSelect";
-import { Plan } from "./Plan";
+// import { Plan } from "./Plan";
 
 export const Sidebar = () => {
   return (
