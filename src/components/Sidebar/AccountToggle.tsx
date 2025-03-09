@@ -8,7 +8,7 @@ export const RocketDash = () => {
                 <img src="https://api.dicebear.com/9.x/notionists/svg" alt="avatar" className='size-8 rounded shrink-0 bg-violet-500 cursor-pointer' />
                 <div className='text-start'>
                     <span className="text-sm font-bold block">Aditya</span>
-                    <span className='text-xs block text-stone-500'>amhambr@Utoledo.edu</span>
+                    <span className='text-xs block text-stone-500 break-words w-28'>amhambr@rockets.utoledo.edu</span>
                 </div>
                 <FiChevronDown className='absolute right-2 top-1/2 translate-y-[calc(-50%+4px)] text-xs' />
                 <FiChevronUp className='absolute right-2 top-1/2 translate-y-[calc(-50%-4px)] text-xs' />

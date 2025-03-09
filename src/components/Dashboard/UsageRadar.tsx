@@ -2,6 +2,18 @@
 
 import React from "react";
 import { FiEye } from "react-icons/fi";
+// import {
+//     Radar,
+//     RadarChart,
+//     PolarGrid,
+//     Legend,
+//     PolarAngleAxis,
+//     PolarRadiusAxis,
+//     ResponsiveContainer,
+//     Tooltip,
+// } from "recharts";
+
+// Fixing Buildtime errors
 import {
     Radar,
     RadarChart,
@@ -10,7 +22,6 @@ import {
     PolarAngleAxis,
     PolarRadiusAxis,
     ResponsiveContainer,
-    Tooltip,
 } from "recharts";
 
 const data = [
