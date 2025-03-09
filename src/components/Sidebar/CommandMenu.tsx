@@ -1,4 +1,5 @@
 import { Command } from "cmdk";
+import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from "react-icons/fi";
 
@@ -22,6 +23,7 @@ export const CommandMenu = ({
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
     }, []);
+    const router = useRouter();
 
     return (
         <Command.Dialog
@@ -47,35 +49,49 @@ export const CommandMenu = ({
                         <span className="text-violet-500">"{value}"</span>
                     </Command.Empty>
 
-                    <Command.Group heading="Team" className="text-sm mb-3 text-stone-400">
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
+                    <Command.Group heading="Dashboard" className="text-sm mb-3 text-stone-400">
+                        <Command.Item
+                            className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2"
+                            onSelect={() => {
+                                setOpen(false); // Close the command menu
+
+                                if (window.location.pathname !== "/") {
+                                    router.push("/#activity");
+                                } else {
+                                    const activitySection = document.getElementById("activity");
+                                    if (activitySection) {
+                                        activitySection.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                }
+                            }}
+                        >
                             <FiPlus />
-                            Invite Member
+                            Activity Chart
                         </Command.Item>
                         <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
                             <FiEye />
-                            See Org Chart
+                            Usage Chart
                         </Command.Item>
                     </Command.Group>
 
                     <Command.Group
-                        heading="Integrations"
+                        heading="Courses"
                         className="text-sm text-stone-400 mb-3"
                     >
                         <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
                             <FiLink />
-                            Link Services
+                            Course
                         </Command.Item>
                         <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
                             <FiPhone />
-                            Contact Support
+                            Contact Professor
                         </Command.Item>
                     </Command.Group>
 
-                    <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
+                    {/* <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
                         <FiLogOut />
                         Sign Out
-                    </Command.Item>
+                    </Command.Item> */}
                 </Command.List>
             </div>
         </Command.Dialog>
