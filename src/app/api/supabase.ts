@@ -62,7 +62,7 @@ export const fetchAllTablesData = async () => {
         const tables = await fetchAllTables()
         if (!tables) return null
 
-        const allData: Record<string, any[]> = {}
+        const allData: Record<string, unknown[]> = {}
         
         for (const table of tables) {
             const { data, error } = await supabase
@@ -79,7 +79,7 @@ export const fetchAllTablesData = async () => {
         
         return allData
     } catch (error) {
-        console.error('Error fetching all ta    bles data:', error)
+        console.error('Error fetching all tables data:', error)
         return null
     }
 }
