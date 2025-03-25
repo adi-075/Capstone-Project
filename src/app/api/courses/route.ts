@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server'
-import { fetchAllTablesData } from '../supabase'
+import { fetchCourses } from '../../utils/supabaseClient'
 
 export async function GET() {
     console.log('Courses API route called');
     try {
-        const allData = await fetchAllTablesData()
+        const courses = await fetchCourses()
         
-        if (!allData) {
-            console.log('No data returned from fetchAllTablesData');
+        if (!courses) {
+            console.log('No courses data returned from fetchCourses');
             return NextResponse.json({ error: 'No data found' }, { status: 404 })
         }
-
-        const courses = allData['course'] || []
         
         if (courses.length === 0) {
             console.log('No courses found in database');

@@ -1,25 +1,23 @@
 import { NextResponse } from 'next/server'
-import { fetchAllTablesData } from '../supabase'
+import { fetchProfessors } from '../../utils/supabaseClient'
 
 export async function GET() {
-    console.log('Students API route called');
+    console.log('Professors API route called');
     try {
-        const allData = await fetchAllTablesData()
+        const professors = await fetchProfessors()
         
-        if (!allData) {
-            console.log('No data returned from fetchAllTablesData');
+        if (!professors) {
+            console.log('No professors data returned from fetchProfessors');
             return NextResponse.json({ error: 'No data found' }, { status: 404 })
         }
-
-        const professor = allData['professor'] || []
         
-        if (professor.length === 0) {
+        if (professors.length === 0) {
             console.log('No professors found in database');
             return NextResponse.json({ message: 'No professors found in database' }, { status: 200 })
         }
         
-        console.log(`Returning ${professor.length} professors`);
-        return NextResponse.json(professor)
+        console.log(`Returning ${professors.length} professors`);
+        return NextResponse.json(professors)
     } catch (error) {
         console.error('API route error:', error)
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
