@@ -5,25 +5,25 @@ export const StatCards = () => {
     return (
         <>
             <Card
-                title="Gross Revenue"
-                value="$120,054.24"
-                pillText="2.75%"
+                title="Current GPA"
+                value="3.92"
+                pillText="Up 0.08"
                 trend="up"
-                period="From Jan 1st - Jul 31st"
+                period="This Semester"
             />
             <Card
-                title="Avg Order"
-                value="$27.97"
-                pillText="1.01%"
+                title="Total Study Hours"
+                value="32 hrs"
+                pillText="Up 15%"
+                trend="up"
+                period="Last Week"
+            />
+            <Card
+                title="Assignments Completed"
+                value="12"
+                pillText="2 Pending"
                 trend="down"
-                period="From Jan 1st - Jul 31st"
-            />
-            <Card
-                title="Trailing Year"
-                value="$278,054.24"
-                pillText="60.75%"
-                trend="up"
-                period="Previous 365 days"
+                period="Current Courses"
             />
         </>
     );
@@ -49,7 +49,6 @@ const Card = ({
                     <h3 className="text-stone-500 mb-2 text-sm">{title}</h3>
                     <p className="text-3xl font-semibold">{value}</p>
                 </div>
-
                 <span
                     className={`text-xs flex items-center gap-1 font-medium px-2 py-1 rounded ${trend === "up"
                         ? "bg-green-100 text-green-700"
@@ -59,7 +58,6 @@ const Card = ({
                     {trend === "up" ? <FiTrendingUp /> : <FiTrendingDown />} {pillText}
                 </span>
             </div>
-
             <p className="text-xs text-stone-500">{period}</p>
         </div>
     );
