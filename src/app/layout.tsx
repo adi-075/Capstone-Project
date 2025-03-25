@@ -12,7 +12,7 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <html lang="en">
