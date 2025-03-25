@@ -5,7 +5,7 @@ const getBaseUrl = () => {
     return process.env.URL || '';
   }
   // For local development
-  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+  return process.env.API_URL || 'http://localhost:3000';
 };
 
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
