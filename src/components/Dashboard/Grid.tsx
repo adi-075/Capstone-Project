@@ -1,6 +1,6 @@
 import React from 'react'
 import { StatCards } from './StatCards';
-import { UsageRadar } from './UsageRadar';
+import UsageRadar from './UsageRadar';
 import StudentDashboardChart from './ActivityChart';
 
 export const Grid = () => {
