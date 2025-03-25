@@ -12,7 +12,7 @@ importers:
         specifier: ^6.4.1
         version: 6.5.0(typescript@5.8.2)
       '@supabase/supabase-js':
-        specifier: ^2.49.1
+        specifier: ^2.49.3
         version: 2.49.3
       bcryptjs:
         specifier: ^3.0.2
