@@ -44,7 +44,7 @@ const Route = ({
     url: string;
 }) => {
     return (
-        <Link href={url} className="block">
+        <Link href={url} className="block" prefetch={true}>
             <button
                 className={`flex items-center justify-start cursor-pointer gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] ${selected
                     ? "bg-white text-stone-950 shadow"
