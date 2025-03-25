@@ -26,7 +26,7 @@ const Card = ({
 }: {
     course: string;
     value: string;
-    period: string;
+    period?: string;
 }) => {
     // Convert letter grade to percentage
     const getPercentage = (grade: string): number => {
