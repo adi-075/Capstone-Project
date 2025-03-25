@@ -1,5 +1,5 @@
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
 // import { FaUser } from "react-icons/fa";
 import { FaLocationArrow } from "react-icons/fa6";
 
@@ -58,11 +58,13 @@ const Card = ({
     value,
     url,
     professor,
+    room,
 }: {
     title: string;
     value: string;
     url?: string;
     professor?: string;
+    room?: string;
 }) => {
     return (
         <div className="col-span-4 relative h-96 rounded-xl overflow-hidden shadow-xl">
