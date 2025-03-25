@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 // import { FaUser } from "react-icons/fa";
-import { FaLocationArrow } from "react-icons/fa6";
+// import { FaLocationArrow } from "react-icons/fa6";
 
 
 export const CourseCard = () => {
