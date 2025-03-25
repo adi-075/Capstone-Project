@@ -18,8 +18,8 @@ export const RouteSelect = () => {
     const routes = [
         { Icon: FiHome, title: "Dashboard", url: "/" },
         { Icon: FiBookOpen, title: "Courses", url: "/courses" },
-        { Icon: FiPaperclip, title: "Study Notes", url: "/notes" },
         { Icon: FiUser, title: "Events", url: "/events" },
+        { Icon: FiPaperclip, title: "Study Notes", url: "/notes" },
         { Icon: FiPlus, title: "Resources", url: "/resources" },
     ];
 

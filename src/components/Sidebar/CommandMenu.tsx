@@ -90,6 +90,20 @@ export const CommandMenu = ({
                         </Command.Item>
                     </Command.Group>
 
+                    <Command.Group
+                        heading="Events"
+                        className="text-sm text-stone-400 mb-3"
+                    >
+                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
+                            <FiLink />
+                            RocketHacks
+                        </Command.Item>
+                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
+                            <FiLink />
+                            2025 Juried Student Exhibition
+                        </Command.Item>
+                    </Command.Group>
+
                     {/* <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
                         <FiLogOut />
                         Sign Out
