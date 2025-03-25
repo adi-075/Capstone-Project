@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server'
-import { fetchAllTablesData } from '../supabase'
+import { fetchGrades } from '../../utils/supabaseClient'
 
 export async function GET() {
     console.log('Grades API route called');
     try {
-        const allData = await fetchAllTablesData()
+        const grades = await fetchGrades()
         
-        if (!allData) {
-            console.log('No data returned from fetchAllTablesData');
+        if (!grades) {
+            console.log('No grades data returned from fetchGrades');
             return NextResponse.json({ error: 'No data found' }, { status: 404 })
         }
-
-        const grades = allData['grade'] || []
         
         if (grades.length === 0) {
             console.log('No grades found in database');
