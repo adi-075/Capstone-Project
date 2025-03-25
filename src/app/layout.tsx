@@ -1,10 +1,8 @@
 "use client";
-import { Inter } from "next/font/google";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 import "@/app/globals.css";
 import { usePathname } from "next/navigation";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "./fonts/fonts";
 
 export default function DashboardLayout({
   children,
