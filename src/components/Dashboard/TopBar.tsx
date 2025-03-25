@@ -1,6 +1,6 @@
 import React from "react";
 import { getFormattedDate } from "@/app/utils/dateFetch";
-import { fetchApi } from "@/app/utils/api";
+import { fetchStudents } from "@/app/utils/supabaseClient";
 
 interface Student {
     first_name: string;
@@ -8,13 +8,17 @@ interface Student {
 }
 
 export const TopBar = async () => {
-    const studentData = await fetchApi<Student[]>('/api/students');
+    // Directly use the server-side function instead of the API route
+    const students = await fetchStudents();
+
+    // Format the data similarly to what you'd get from fetchApi
+    const studentData = students || [];
 
     return (
         <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
             <div className="flex items-center justify-between p-0.5">
                 <div>
-                    {studentData && studentData.length > 0 && (
+                    {studentData.length > 0 && (
                         <span className="text-2xl font-bold block">
                             🚀 Good Day, {studentData[0].first_name}!
                         </span>
