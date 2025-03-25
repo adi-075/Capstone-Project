@@ -1,8 +1,8 @@
 // Use environment variables for deployment URLs
 const getBaseUrl = () => {
-  // For Netlify deployment
-  if (process.env.NETLIFY) {
-    return process.env.URL || '';
+  // For Netlify and Vercel deployment
+  if (process.env.NETLIFY || process.env.VERCEL) {
+    return process.env.URL || '';   
   }
   // For local development
   return process.env.API_URL || 'http://localhost:3000';
