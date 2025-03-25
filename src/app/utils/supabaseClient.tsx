@@ -13,4 +13,58 @@ if (!supabaseKey) {
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey)
+
+// Individual fetch functions for each table
+export async function fetchStudents() {
+    const { data, error } = await supabase
+        .from('student')
+        .select('*')
+
+    if (error) {
+        console.error('Error fetching students:', error)
+        return null
+    }
+
+    return data
+}
+
+export async function fetchProfessors() {
+    const { data, error } = await supabase
+        .from('professor')
+        .select('*')
+
+    if (error) {
+        console.error('Error fetching professors:', error)
+        return null
+    }
+
+    return data
+}
+
+export async function fetchCourses() {
+    const { data, error } = await supabase
+        .from('course')
+        .select('*')
+
+    if (error) {
+        console.error('Error fetching courses:', error)
+        return null
+    }
+
+    return data
+}
+
+export async function fetchGrades() {
+    const { data, error } = await supabase
+        .from('grade')
+        .select('*')
+
+    if (error) {
+        console.error('Error fetching grades:', error)
+        return null
+    }
+
+    return data
+}
+
 export default supabase
