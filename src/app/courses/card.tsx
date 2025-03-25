@@ -49,22 +49,21 @@ const Card = ({
     value,
     url,
     professor,
-    room,
 }: {
     title: string;
     value: string;
     url?: string;
     professor?: string;
-    room?: string;
 }) => {
     return (
         <div className="col-span-4 relative h-96 rounded-xl overflow-hidden shadow-xl">
             {/* Full-sized background image */}
             <div className="absolute inset-0">
-                <img
-                    src={url}
+                <Image
+                    src={url || ''}
                     alt={title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                 />
             </div>
 
