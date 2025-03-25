@@ -24,7 +24,7 @@ export const CommandMenu = ({
 
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
-    }, []);
+    }, [setOpen]);
     const router = useRouter();
 
     return (
