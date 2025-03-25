@@ -4,12 +4,11 @@ import { fetchStudents } from "@/app/utils/supabaseClient";
 
 interface Student {
     first_name: string;
-    // add other student fields as needed
 }
 
 export const TopBar = async () => {
-    // Directly use the server-side function instead of the API route
-    const students = await fetchStudents();
+    // Directly use the server-side function and type its return value
+    const students = await fetchStudents() as Student[] | null;
 
     // Format the data similarly to what you'd get from fetchApi
     const studentData = students || [];
