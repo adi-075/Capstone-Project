@@ -7,22 +7,6 @@ interface Student {
     // add other student fields as needed
 }
 
-// Fallback component to use when data fetching fails
-const WelcomeUI = () => (
-    <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
-        <div className="flex items-center justify-between p-0.5">
-            <div>
-                <span className="text-2xl font-bold block">
-                    🚀 Welcome to your dashboard!
-                </span>
-                <span className="text-lg block text-stone-500">
-                    {getFormattedDate()}
-                </span>
-            </div>
-        </div>
-    </div>
-);
-
 export const TopBar = async () => {
     try {
         const studentData = await fetchApi<Student[]>('/api/students');
@@ -33,7 +17,7 @@ export const TopBar = async () => {
                     <div>
                         {studentData && studentData.length > 0 && (
                             <span className="text-2xl font-bold block">
-                                🚀 Good day, {studentData[0].first_name}!
+                                🚀 Good Day, {studentData[0].first_name}!
                             </span>
                         )}
                         {(!studentData || studentData.length === 0) && (
@@ -55,6 +39,20 @@ export const TopBar = async () => {
         );
     } catch (error) {
         console.error('Failed to fetch student data:', error);
-        return <WelcomeUI />;
+        // Return a fallback UI instead of an error
+        return (
+            <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
+                <div className="flex items-center justify-between p-0.5">
+                    <div>
+                        <span className="text-2xl font-bold block">
+                            🚀 Welcome to your dashboard!
+                        </span>
+                        <span className="text-lg block text-stone-500">
+                            {getFormattedDate()}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        );
     }
 };
