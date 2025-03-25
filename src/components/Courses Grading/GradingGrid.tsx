@@ -8,12 +8,10 @@ export const GradingGrid = () => {
             <Card
                 course="ENGT 4050"
                 value="A"
-                period="This Semester"
             />
             <Card
                 course="CSET 4750"
                 value="B"
-                period="This Semester"
             />
         </>
     );
@@ -22,11 +20,9 @@ export const GradingGrid = () => {
 const Card = ({
     course,
     value,
-    period,
 }: {
     course: string;
     value: string;
-    period?: string;
 }) => {
     // Convert letter grade to percentage
     const getPercentage = (grade: string): number => {
