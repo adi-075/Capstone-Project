@@ -1,10 +1,7 @@
 import React from "react";
 import { getFormattedDate } from "@/app/utils/dateFetch";
 import { fetchStudents } from "@/app/api/supabase";
-
-interface Student {
-    first_name: string;
-}
+import { Student } from "@/types/student";
 
 export const TopBar = async () => {
     // Directly use the server-side function and type its return value
