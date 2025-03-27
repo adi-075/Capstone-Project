@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { fetchProfessors } from '../../utils/supabaseClient'
+import { fetchProfessors } from '@/app/api/supabase'
 
 export async function GET() {
     console.log('Professors API route called');
