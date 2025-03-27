@@ -1,6 +1,6 @@
 import React from "react";
 import { getFormattedDate } from "@/app/utils/dateFetch";
-import { fetchStudents } from "@/app/utils/supabaseClient";
+import { fetchStudents } from "@/app/api/supabase";
 
 interface Student {
     first_name: string;
