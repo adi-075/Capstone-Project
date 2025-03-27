@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import { fetchStudents } from '@/app/api/supabase'
 import Image from 'next/image'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { Student } from '@/types/student'
 
 export function AccountToggle() {
-    const [student, setStudent] = useState<any>(null)
+    const [student, setStudent] = useState<Student | null>(null)
 
     useEffect(() => {
         const getStudent = async () => {
