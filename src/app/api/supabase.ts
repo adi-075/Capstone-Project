@@ -1,33 +1,5 @@
 import supabase from "../utils/supabaseClient"
 
-// export const fetchStudent = async () => {
-//     try {
-//         console.log('Attempting to fetch students...');
-//         const { data, error } = await supabase
-//             .from('student')
-//             .select('*')
-        
-//         // Log the raw response
-//         console.log('Supabase response:', { data, error });
-        
-//         if (error) {
-//             console.error('Supabase query error:', error)
-//             throw error
-//         }
-        
-//         if (!data || data.length === 0) {
-//             console.log('No students found in the database');
-//         } else {
-//             console.log(`Found ${data.length} students`);
-//         }
-        
-//         return data
-//     } catch (error) {
-//         console.error('Error fetching student data:', error)
-//         return null
-//     }
-// }
-
 export const fetchAllTables = async () => {
     try {
         console.log('Attempting to fetch all tables...');
