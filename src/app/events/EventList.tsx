@@ -10,7 +10,29 @@ interface Event {
   image: string;
   imageAltText: string;
   eventUrl: string;
+  tags: string[]; // New field
 }
+
+const allowedTags = [
+  "academic",
+  "Academics",
+  "accessibility",
+  "admissions",
+  "alumni",
+  "event",
+  "events",
+  "holiday",
+  "home",
+  "institute",
+  "Lecture",
+  "lectures",
+  "mathematics",
+  "networking",
+  "research",
+  "Student activities",
+  "students",
+  "tech",
+];
 
 const EventsList = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -20,7 +42,13 @@ const EventsList = () => {
       try {
         const response = await fetch("/api/events");
         const data = await response.json();
-        setEvents(data);
+
+        // Filter based on tags
+        const filtered = data.filter((event: Event) =>
+          event.tags?.some((tag) => allowedTags.includes(tag)),
+        );
+
+        setEvents(filtered);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -47,6 +75,7 @@ const EventsList = () => {
                   src={event.image}
                   alt={event.imageAltText || "Event image"}
                   className="object-cover w-full h-full"
+                  loading="lazy"
                 />
               ) : (
                 <div className="w-full h-full bg-blue-200 flex items-center justify-center">
