@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { fetchStudents } from '@/app/api/supabase'
 import Image from 'next/image'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { Student } from '@/types/student'
@@ -11,8 +10,15 @@ export function AccountToggle() {
 
     useEffect(() => {
         const getStudent = async () => {
-            const students = await fetchStudents()
-            setStudent(students?.[0])
+            try {
+                const response = await fetch('/api/students')
+                const data = await response.json()
+                if (response.ok) throw new Error(data.error)
+                return data
+            } catch (error) {
+                console.error('Error fetching students:', error)
+                return null
+            }
         }
         getStudent()
     }, [])
