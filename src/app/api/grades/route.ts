@@ -10,9 +10,9 @@ export async function GET() {
         if (error) throw error
 
         return NextResponse.json(data)
-    } catch (error) {
+    } catch (error: any) {
         return NextResponse.json(
-            { error: 'Error fetching Grades' },
+            { error: error.message || "Error fetching Grades" },
             { status: 500 }
         )
     }
