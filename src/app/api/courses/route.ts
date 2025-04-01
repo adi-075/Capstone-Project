@@ -10,9 +10,10 @@ export async function GET() {
         if (error) throw error
 
         return NextResponse.json(data)
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Error fetching Courses"
         return NextResponse.json(
-            { error: error.message || "Error fetching Courses" },
+            { error: errorMessage },
             { status: 500 }
         )
     }
