@@ -12,8 +12,8 @@ interface Course {
 }
 
 const courseImages = [
+    '/courses/1.avif',
     '/courses/2.avif',
-    '/courses/3.avif',
     '/capstone.jpg',
     '/information-security.jpg'
 ];
