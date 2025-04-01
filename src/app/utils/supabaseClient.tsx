@@ -11,7 +11,7 @@ export async function defineBaseUrl() {
 // This client is for server-side use only
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const supabaseKey =
-    process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY;
+    process.env.SUPABASE_SERVICE_KEY;
 
 if (!supabaseUrl) {
     throw new Error(
