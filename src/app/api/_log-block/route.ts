@@ -1,5 +1,4 @@
-// app/api/_log-block/route.ts
-import { writeFile, appendFile } from 'fs/promises'
+import { appendFile } from 'fs/promises'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 
