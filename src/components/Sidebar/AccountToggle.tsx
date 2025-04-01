@@ -13,11 +13,12 @@ export function AccountToggle() {
             try {
                 const response = await fetch('/api/students')
                 const data = await response.json()
-                if (response.ok) throw new Error(data.error)
-                return data
+                if (!response.ok) throw new Error(data.error)
+                // Set the first student from the response
+                setStudent(data[0] || null)
             } catch (error) {
                 console.error('Error fetching students:', error)
-                return null
+                setStudent(null)
             }
         }
         getStudent()
@@ -35,7 +36,7 @@ export function AccountToggle() {
                     />
                 </div>
                 <div className='text-start'>
-                    <span className="text-sm font-bold block">Aditya</span>
+                    <span className="text-sm font-bold block">{student?.first_name || 'Loading...'}</span>
                     <span className='text-xs block text-stone-500 break-words w-28'>
                         {student?.email || 'Loading...'}
                     </span>
