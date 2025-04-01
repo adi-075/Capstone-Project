@@ -1,54 +1,54 @@
 import React from "react";
 import Image from "next/image";
-// import { FaUser } from "react-icons/fa";
-// import { FaLocationArrow } from "react-icons/fa6";
+import { defineBaseUrl } from "@/app/utils/supabaseClient";
 
+interface Course {
+    student_id: string;
+    professor_id: number;
+    course_name: string;
+    course_code: string;
+    building: string;
+    room: string;
+}
 
-export const CourseCard = () => {
+const courseImages = [
+    '/courses/2.avif',
+    '/courses/3.avif',
+    '/capstone.jpg',
+    '/information-security.jpg'
+];
+
+function getRandomImage(): string {
+    const randomIndex = Math.floor(Math.random() * courseImages.length);
+    return courseImages[randomIndex];
+}
+
+async function getCourses() {
+    try {
+        const base_url = await defineBaseUrl();
+        const response = await fetch(`${base_url}/api/courses`);
+        if (!response.ok) throw new Error('Failed to fetch courses');
+        return response.json();
+    } catch (error) {
+        console.error('Error fetching courses:', error);
+        return [];
+    }
+}
+
+export const CourseCard = async () => {
+    const courses = await getCourses();
+
     return (
         <>
-            <Card
-                title="ENGT 4050"
-                value="Senior Technology Capstone"
-                url="/capstone.jpg"
-                professor="Prof. Bilal Sarsour"
-                room="NE 1160"
-            />
-            <Card
-                title="CSET 3250"
-                value="Client-Side Scripting"
-                professor="Dr. Hong Wang"
-                url="/scripting.jpg"
-                room="Online"
-            />
-            <Card
-                title="INFS 3400"
-                value="Information Systems"
-                professor="Dr. Basaam Hasan"
-                url="/information-security.jpg"
-                room="Stranahan 0118"
-            />
-            <Card
-                title="CSET 4750"
-                value="Computer Networks"
-                professor="Prof. Scott Brahaney"
-                url="/information-security.jpg"
-                room="NE 1001"
-            />
-            <Card
-                title="BUAD 3010"
-                value="Principles of Marketing"
-                professor="Dr. Ellen Pullins"
-                url="/information-security.jpg"
-                room="Savage & Business 1140"
-            />
-            <Card
-                title="FINA 3060"
-                value="Personal Finance"
-                professor="Prof. Shawn Tysiak"
-                url="/information-security.jpg"
-                room="Online"
-            />
+            {courses.map((course: Course) => (
+                <Card
+                    key={`${course.course_code}-${course.student_id}`}
+                    title={course.course_code}
+                    value={course.course_name}
+                    location={`${course.building} ${course.room}`}
+                    imageUrl={getRandomImage()}
+                />
+            ))}
         </>
     );
 };
@@ -56,39 +56,33 @@ export const CourseCard = () => {
 const Card = ({
     title,
     value,
-    url,
-    professor,
-    room,
+    location,
+    imageUrl,
 }: {
     title: string;
     value: string;
-    url?: string;
-    professor?: string;
-    room?: string;
+    location: string;
+    imageUrl: string;
 }) => {
     return (
         <div className="col-span-4 relative h-96 rounded-xl overflow-hidden shadow-xl">
-            {/* Full-sized background image */}
             <div className="absolute inset-0">
                 <Image
-                    src={url || ''}
+                    src={imageUrl}
                     alt={title}
                     fill
                     className="object-cover"
+                    priority
                 />
             </div>
 
-            {/* Semi-transparent overlay for better text readability if needed */}
-            <div className="absolute inset-0 bg-black/30 bg-opacity-20"></div>
+            <div className="absolute inset-0 bg-black/30"></div>
 
-            {/* Text overlay container */}
             <div className="absolute bottom-0 left-0 right-0">
                 <div className="bg-white/90 backdrop-blur-3xl p-4 m-3 rounded-lg shadow-sm">
                     <h3 className="text-stone-600 text-lg font-medium mb-2">{title}</h3>
                     <p className="text-3xl font-bold text-stone-800 mb-1">{value}</p>
-                    <p className="text-2xl font-bold text-stone-600 mb-1">
-                        {professor}</p>
-                    <p className="text-2xl font-bold text-stone-600 mb-1">Classroom: {room}</p>
+                    <p className="text-2xl font-bold text-stone-600 mb-1">{location}</p>
                 </div>
             </div>
         </div>
