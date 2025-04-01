@@ -1,18 +1,25 @@
-import { appendFile } from 'fs/promises'
 import { NextRequest, NextResponse } from 'next/server'
-import path from 'path'
-
+import supabase from '@/app/utils/supabaseClient'
 export async function POST(req: NextRequest) {
     try {
-        const data = await req.json()
-        const logLine = `[${data.time}] Blocked IP: ${data.ip}, Path: ${data.path}\n`
+        const body = await req.json()
 
-        const logPath = path.join(process.cwd(), 'logs', 'blocked.log')
-        await appendFile(logPath, logLine, { encoding: 'utf-8' })
+        const { error } = await supabase
+            .from('blocked_requests')
+            .insert({
+                ip: body.ip,
+                path: body.path,
+                time: body.time,
+            })
+
+        if (error) {
+            console.error('Supabase insert error:', error)
+            return NextResponse.json({ success: false }, { status: 500 })
+        }
 
         return NextResponse.json({ success: true })
     } catch (err) {
-        console.error('Log write error:', err)
+        console.error('Unexpected error logging to Supabase:', err)
         return NextResponse.json({ success: false }, { status: 500 })
     }
 }
