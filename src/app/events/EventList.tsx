@@ -10,7 +10,7 @@ interface Event {
   image: string;
   imageAltText: string;
   eventUrl: string;
-  tags: string[]; // New field
+  tags: string[];
 }
 
 const allowedTags = [
@@ -43,7 +43,6 @@ const EventsList = () => {
         const response = await fetch("/api/events");
         const data = await response.json();
 
-        // Filter based on tags
         const filtered = data.filter((event: Event) =>
           event.tags?.some((tag) => allowedTags.includes(tag)),
         );
@@ -67,7 +66,7 @@ const EventsList = () => {
         {events.map((event, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
             <div className="relative h-48 w-full">
               {event.image ? (
@@ -84,40 +83,42 @@ const EventsList = () => {
               )}
             </div>
 
-            <div className="p-4">
-              <h3 className="text-xl font-bold text-blue-900 mb-2 line-clamp-2">
-                {event.title}
-              </h3>
+            <div className="p-4 flex flex-col h-full">
+              <div className="flex-grow">
+                <h3 className="text-xl font-bold text-blue-900 mb-2 line-clamp-2">
+                  {event.title}
+                </h3>
 
-              <div className="mb-3">
-                {event.date && (
-                  <p className="text-sm text-gray-600 flex items-center mb-1">
-                    {event.date}
-                  </p>
-                )}
-                {event.location && (
-                  <p className="text-sm text-gray-600 flex items-center">
-                    <svg
-                      className="w-4 h-4 mr-2"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    {event.location}
+                <div className="mb-3">
+                  {event.date && (
+                    <p className="text-sm text-gray-600 flex items-center mb-1">
+                      {event.date}
+                    </p>
+                  )}
+                  {event.location && (
+                    <p className="text-sm text-gray-600 flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                      {event.location}
+                    </p>
+                  )}
+                </div>
+
+                {event.descriptionText && (
+                  <p className="text-gray-700 mb-4 line-clamp-3">
+                    {event.descriptionText}
                   </p>
                 )}
               </div>
-
-              {event.descriptionText && (
-                <p className="text-gray-700 mb-4 line-clamp-3">
-                  {event.descriptionText}
-                </p>
-              )}
 
               <a
                 href={event.eventUrl}
