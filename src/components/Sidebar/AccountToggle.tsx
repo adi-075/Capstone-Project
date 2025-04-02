@@ -2,18 +2,30 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-// import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { Student } from '@/types/student'
+
+const avatarList = [
+    '/avatar/avatar2.png',
+    '/avatar/avatar3.bmp',
+    '/avatar/avatar4.png',
+    '/avatar/avatar5.png',
+    // Add more if needed
+]
+
+function getRandomAvatar() {
+    return avatarList[Math.floor(Math.random() * avatarList.length)]
+}
 
 export function AccountToggle() {
     const [student, setStudent] = useState<Student | null>(null)
+    const [avatar, setAvatar] = useState<string>(getRandomAvatar)
 
     useEffect(() => {
         const fetchStudent = async () => {
             try {
-                const students = await fetch('/api/students')
-                const data = await students.json()
-                if (!students.ok) throw new Error(data.error)
+                const res = await fetch('/api/students')
+                const data = await res.json()
+                if (!res.ok) throw new Error(data.error)
                 setStudent(Array.isArray(data) ? data[0] : null)
             } catch (error) {
                 console.error('Error fetching students:', error)
@@ -28,10 +40,10 @@ export function AccountToggle() {
             <button className='flex p-0.5 hover:bg-stone-200 rounded transition-colors relative gap-2 w-full items-center'>
                 <div className='relative size-8 rounded shrink-0 bg-violet-500 cursor-pointer'>
                     <Image
-                        src={"/avatar.svg"}
+                        src={avatar}
                         alt="avatar"
                         fill
-                        className='rounded'
+                        className='rounded object-cover'
                     />
                 </div>
                 <div className='text-start'>
@@ -42,8 +54,6 @@ export function AccountToggle() {
                         {student?.email || 'No Email'}
                     </span>
                 </div>
-                {/* <FiChevronDown className='absolute right-1 top-1/2 translate-y-[calc(-50%+4px)] text-xs' />
-                <FiChevronUp className='absolute right-1 top-1/2 translate-y-[calc(-50%-4px)] text-xs' /> */}
             </button>
         </div>
     )
