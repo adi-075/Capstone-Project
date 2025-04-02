@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { defineBaseUrl } from "@/app/utils/supabaseClient";
-
+import { getCourses } from "@/lib/getCourses";
 interface Course {
     student_id: string;
     professor_id: number;
@@ -21,18 +20,6 @@ const courseImages = [
 function getRandomImage(): string {
     const randomIndex = Math.floor(Math.random() * courseImages.length);
     return courseImages[randomIndex];
-}
-
-async function getCourses() {
-    try {
-        const base_url = await defineBaseUrl();
-        const response = await fetch(`${base_url}/api/courses`);
-        if (!response.ok) throw new Error('Failed to fetch courses');
-        return response.json();
-    } catch (error) {
-        console.error('Error fetching courses:', error);
-        return [];
-    }
 }
 
 export const CourseCard = async () => {
