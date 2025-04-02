@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+// import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { Student } from '@/types/student'
 
 export function AccountToggle() {
