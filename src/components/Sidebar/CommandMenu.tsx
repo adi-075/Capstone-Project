@@ -5,7 +5,8 @@ import Link from "next/link";
 import LogoutButton from "@/app/logout/page";
 // import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from "react-icons/fi";
 // NOTE: Fixing buildtime errors
-import { FiEye, FiLink, FiPhone, FiPlus } from "react-icons/fi";
+// import { FiEye, FiLink, FiPhone, FiPlus } from "react-icons/fi";
+import { FiEye, FiLink, FiPlus } from "react-icons/fi";
 
 export const CommandMenu = ({
     open,
