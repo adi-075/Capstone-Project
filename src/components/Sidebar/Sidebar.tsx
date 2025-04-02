@@ -3,13 +3,14 @@ import { usePathname } from "next/navigation";
 import { AccountToggle } from "./AccountToggle";
 import { Search } from "./Search";
 import { RouteSelect } from "./RouteSelect";
+import LogoutButton from "@/app/logout/page";
 // import { Plan } from "./Plan";
 
 export const Sidebar = () => {
   const pathname = usePathname();
 
   // Do not render the sidebar on the login route
-  if (pathname === "/login") {
+  if (pathname === "/login" || pathname === "/logout") {
     return null;
   }
 
@@ -19,6 +20,7 @@ export const Sidebar = () => {
         <AccountToggle />
         <Search />
         <RouteSelect />
+        <LogoutButton />
       </div>
 
       {/* <Plan /> */}
