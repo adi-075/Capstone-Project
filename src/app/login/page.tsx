@@ -1,53 +1,57 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/app/utils/supabase/client';
+import { login, signup } from './actions';
 
 export default function LoginPage() {
-  const supabase = createClient();
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      setError(error.message);
-      return;
-    }
-
-    router.push('/');
-  };
-
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 mb-2 w-full"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 mb-4 w-full"
-          required
-        />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 w-full">
-          Sign In
-        </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </form>
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+        <h2 className="text-2xl font-semibold text-center">Welcome Back</h2>
+
+        <form className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-gray-700 font-medium">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-gray-700 font-medium">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <div className="flex space-x-4 justify-between">
+            <button
+              formAction={login}
+              className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Log in
+            </button>
+
+            <button
+              formAction={signup}
+              className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
