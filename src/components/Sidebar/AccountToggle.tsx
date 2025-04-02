@@ -9,19 +9,18 @@ export function AccountToggle() {
     const [student, setStudent] = useState<Student | null>(null)
 
     useEffect(() => {
-        const getStudent = async () => {
+        const fetchStudent = async () => {
             try {
-                const response = await fetch('/api/students')
-                const data = await response.json()
-                if (!response.ok) throw new Error(data.error)
-                // Set the first student from the response
-                setStudent(data[0] || null)
+                const students = await fetch('/api/students')
+                const data = await students.json()
+                if (!students.ok) throw new Error(data.error)
+                setStudent(Array.isArray(data) ? data[0] : null)
             } catch (error) {
                 console.error('Error fetching students:', error)
                 setStudent(null)
             }
         }
-        getStudent()
+        fetchStudent()
     }, [])
 
     return (
@@ -36,13 +35,15 @@ export function AccountToggle() {
                     />
                 </div>
                 <div className='text-start'>
-                    <span className="text-sm font-bold block">{student?.first_name || 'Loading...'}</span>
-                    <span className='text-xs block text-stone-500 break-words w-28'>
-                        {student?.email || 'Loading...'}
+                    <span className="text-sm font-bold block">
+                        {student?.first_name || 'No Name'}
+                    </span>
+                    <span className='text-xs block text-stone-500 break-words'>
+                        {student?.email || 'No Email'}
                     </span>
                 </div>
-                <FiChevronDown className='absolute right-2 top-1/2 translate-y-[calc(-50%+4px)] text-xs' />
-                <FiChevronUp className='absolute right-2 top-1/2 translate-y-[calc(-50%-4px)] text-xs' />
+                {/* <FiChevronDown className='absolute right-1 top-1/2 translate-y-[calc(-50%+4px)] text-xs' />
+                <FiChevronUp className='absolute right-1 top-1/2 translate-y-[calc(-50%-4px)] text-xs' /> */}
             </button>
         </div>
     )
