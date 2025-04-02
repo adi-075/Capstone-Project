@@ -1,23 +1,10 @@
 import React from "react";
 import { getFormattedDate } from "@/app/utils/dateFetch";
-import { defineBaseUrl } from "@/app/utils/supabaseClient";
-
-async function getStudents() {
-    try {
-        const baseUrl = await defineBaseUrl();
-        const response = await fetch(`${baseUrl}/api/students`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch students');
-        }
-        return response.json();
-    } catch (error) {
-        console.error('Error fetching Students:', error);
-        return null;
-    }
-}
+import { getStudents } from "@/lib/getStudents";
 
 export const TopBar = async () => {
     const students = await getStudents();
+    console.log(students);
 
     return (
         <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
