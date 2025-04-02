@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { getCourses } from "@/lib/getCourses";
+
 interface Course {
     student_id: string;
     professor_id: number;
@@ -24,6 +25,17 @@ function getRandomImage(): string {
 
 export const CourseCard = async () => {
     const courses = await getCourses();
+
+    if (!courses || courses.length === 0) {
+        return (
+            <div className="col-span-4 ml-1">
+                <p className="text-lg text-stone-600">You are not enrolled in any courses yet.</p>
+                <button className="mt-3 px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                    Add Course
+                </button>
+            </div>
+        );
+    }
 
     return (
         <>
