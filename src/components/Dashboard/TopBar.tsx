@@ -4,7 +4,6 @@ import { getStudents } from "@/lib/getStudents";
 
 export const TopBar = async () => {
     const students = await getStudents();
-    console.log(students);
 
     return (
         <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
