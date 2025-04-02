@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     SUPABASE_KEY: process.env.SUPABASE_KEY,
     SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
     API_URL: process.env.API_URL,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
   },
 };
 
