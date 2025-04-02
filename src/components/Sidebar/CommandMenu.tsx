@@ -1,6 +1,8 @@
 import { Command } from "cmdk";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Link from "next/link";
+import LogoutButton from "@/app/logout/page";
 // import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from "react-icons/fi";
 // NOTE: Fixing buildtime errors
 import { FiEye, FiLink, FiPhone, FiPlus } from "react-icons/fi";
@@ -80,28 +82,30 @@ export const CommandMenu = ({
                         heading="Courses"
                         className="text-sm text-stone-400 mb-3"
                     >
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiLink />
-                            Course
-                        </Command.Item>
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiPhone />
-                            Contact Professor
-                        </Command.Item>
+                        <Link href="/courses" prefetch={true}>
+                            <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
+                                <FiLink />
+                                Courses
+                            </Command.Item>
+                        </Link>
                     </Command.Group>
 
                     <Command.Group
                         heading="Events"
                         className="text-sm text-stone-400 mb-3"
                     >
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiLink />
-                            RocketHacks
-                        </Command.Item>
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiLink />
-                            2025 Juried Student Exhibition
-                        </Command.Item>
+                        <Link href="/events" prefetch={true}>
+                            <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
+                                <FiLink />
+                                Events Page
+                            </Command.Item>
+                        </Link>
+                    </Command.Group>
+                    <Command.Group
+                        heading="Sign Out"
+                        className="text-sm text-stone-400 mb-3"
+                    >
+                        <LogoutButton />
                     </Command.Group>
 
                     {/* <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
