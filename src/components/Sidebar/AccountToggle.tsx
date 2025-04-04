@@ -27,7 +27,7 @@ export function AccountToggle() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const res = await fetch("/api/students");
+        const res = await fetch("http://localhost:3000/api/students");
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
         setStudent(Array.isArray(data) ? data[0] : null);
