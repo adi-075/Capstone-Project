@@ -13,6 +13,7 @@ const avatarList = [
 
 function getRandomAvatar(current?: string) {
   // Avoid returning the same avatar
+  // TODO: Make this more efficient
   let newAvatar: string;
   do {
     newAvatar = avatarList[Math.floor(Math.random() * avatarList.length)];
