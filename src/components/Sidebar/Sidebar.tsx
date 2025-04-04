@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { AccountToggle } from "./AccountToggle";
 import { Search } from "./Search";
 import { RouteSelect } from "./RouteSelect";
-import LogoutButton from "@/app/logout/page";
+import { LogoutButton } from "./LogoutButton";
 // import { Plan } from "./Plan";
 
 export const Sidebar = () => {
