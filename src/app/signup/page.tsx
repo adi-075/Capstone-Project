@@ -28,7 +28,7 @@ function SignupForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-100 dark:bg-[#081028]">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full bg-white/50 dark:bg-[#101935]/50 backdrop-blur-md backdrop-saturate-150 rounded-lg border border-stone-300/50 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-[#000000]/20 p-8 space-y-6">
         <h2 className="text-2xl font-semibold text-center text-stone-950 dark:text-white/80">Sign Up</h2>
 
