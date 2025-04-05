@@ -1,88 +1,108 @@
 "use client";
 import React from "react";
-import { RadialBarChart, PolarAngleAxis, RadialBar } from 'recharts';
+import { FiBook, FiAward } from "react-icons/fi";
 
 export const GradingGrid = () => {
     return (
-        <>
-            <Card
+        <div className="flex flex-wrap gap-5">
+            <GradeCard
                 course="ENGT 4050"
                 value="A"
+                progress={95}
+                assignments={12}
+                completed={10}
+                nextExam="May 15"
             />
-            <Card
+            <GradeCard
                 course="CSET 4750"
                 value="B"
+                progress={83}
+                assignments={8}
+                completed={6}
+                nextExam="May 20"
             />
-        </>
+        </div>
     );
 };
 
-const Card = ({
+const GradeCard = ({
     course,
     value,
+    progress,
+    assignments,
+    completed,
+    nextExam,
 }: {
     course: string;
     value: string;
+    progress: number;
+    assignments: number;
+    completed: number;
+    nextExam: string;
 }) => {
-    // Convert letter grade to percentage
-    const getPercentage = (grade: string): number => {
+    const getGradeColor = (grade: string) => {
         switch (grade) {
-            case 'A+': return 100;
-            case 'A': return 95;
-            case 'A-': return 90;
-            case 'B+': return 87;
-            case 'B': return 83;
-            case 'B-': return 80;
-            case 'C+': return 77;
-            case 'C': return 73;
-            case 'C-': return 70;
-            case 'D+': return 67;
-            case 'D': return 63;
-            case 'D-': return 60;
-            case 'F': return 50;
-            default: return 0;
+            case 'A': return 'text-green-500';
+            case 'B': return 'text-blue-500';
+            case 'C': return 'text-yellow-500';
+            case 'D': return 'text-orange-500';
+            case 'F': return 'text-red-500';
+            default: return 'text-gray-500';
         }
     };
 
-    const percentage = getPercentage(value);
-
-    const data = [
-        { name: 'Progress', value: percentage, fill: '#7DD3FB' }
-    ];
+    const getProgressColor = (progress: number) => {
+        if (progress >= 90) return 'bg-green-500';
+        if (progress >= 80) return 'bg-blue-500';
+        if (progress >= 70) return 'bg-yellow-500';
+        if (progress >= 60) return 'bg-orange-500';
+        return 'bg-red-500';
+    };
 
     return (
-        <div className="col-span-3 p-4 rounded border border-stone-300">
-            <div className="flex flex-col items-center pb-5">
-                <h3 className="text-black mb-4 text-xl font-bold">{course}</h3>
-                <div className="relative -m-4 flex justify-center items-center">
-                    <RadialBarChart
-                        width={200}
-                        height={200}
-                        data={data}
-                        innerRadius={100}
-                        barSize={5}
-                        startAngle={90}
-                        endAngle={-270}
-                    >
-                        <PolarAngleAxis
-                            type="number"
-                            domain={[0, 100]}
-                            angleAxisId={0}
-                            tick={false}
-                        />
-                        <RadialBar
-                            background
-                            dataKey="value"
-                            cornerRadius={40 / 2}
-                            fill="#003E7E"
-                        />
-                    </RadialBarChart>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <div className="flex flex-col items-center">
-                            <p className="text-center text-md">Progress</p>
-                            <span className="text-xl font-bold">{percentage}%</span>
-                        </div>
+        <div className="flex-1 min-w-[350px] p-6 rounded border border-stone-300/50 dark:border-white/10 bg-white/50 dark:bg-[#101935]/50 backdrop-blur-md backdrop-saturate-150 shadow-lg shadow-black/5 dark:shadow-[#000000]/20">
+            <div className="flex items-start justify-between mb-6">
+                <div>
+                    <h3 className="text-xl font-semibold text-stone-950 dark:text-white/80">{course}</h3>
+                    <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-3xl font-bold ${getGradeColor(value)}`}>{value}</span>
+                        <span className="text-stone-500 dark:text-[#AEB9E1]">({progress}%)</span>
                     </div>
+                </div>
+                <div className="p-2 rounded-full bg-stone-100 dark:bg-[#0B1739]">
+                    <FiBook className="text-violet-500 text-xl" />
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-6">
+                {/* Progress Bar */}
+                <div className="flex-1">
+                    <div className="flex justify-between text-sm mb-1">
+                        <span className="text-stone-500 dark:text-[#AEB9E1]">Course Progress</span>
+                        <span className="text-stone-700 dark:text-white/80">{progress}%</span>
+                    </div>
+                    <div className="h-2 bg-stone-100 dark:bg-[#0B1739] rounded-full overflow-hidden">
+                        <div 
+                            className={`h-full ${getProgressColor(progress)} transition-all duration-500`}
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                </div>
+
+                {/* Assignments Progress */}
+                <div className="flex items-center justify-between p-3 bg-stone-50 dark:bg-[#0B1739] rounded-lg">
+                    <div className="flex items-center gap-2 min-w-0">
+                        <FiAward className="text-violet-500 flex-shrink-0" />
+                        <span className="text-stone-700 dark:text-white/80 truncate">Assignments</span>
+                    </div>
+                    <span className="text-stone-500 dark:text-[#AEB9E1] flex-shrink-0">
+                        {completed}/{assignments}
+                    </span>
+                </div>
+
+                {/* Next Exam */}
+                <div className="text-sm text-stone-500 dark:text-[#AEB9E1]">
+                    Next exam: <span className="text-stone-700 dark:text-white/80">{nextExam}</span>
                 </div>
             </div>
         </div>

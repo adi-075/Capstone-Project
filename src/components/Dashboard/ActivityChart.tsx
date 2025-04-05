@@ -15,8 +15,8 @@ const data = [
 
 const StudentDashboardChart = () => {
     return (
-        <div id="activity" className="col-span-8 overflow-hidden rounded border border-stone-300 dark:border-white/15 bg-white dark:bg-[#101935]">
-            <div className="p-4 border-b border-stone-200 dark:border-white/15">
+        <div id="activity" className="col-span-8 overflow-hidden rounded border border-stone-300/50 dark:border-white/10 bg-white/50 dark:bg-[#101935]/50 backdrop-blur-md backdrop-saturate-150 shadow-lg shadow-black/5 dark:shadow-[#000000]/20">
+            <div className="p-4 border-b border-stone-200/50 dark:border-white/10">
                 <h3 className="flex items-center gap-1.5 font-medium text-stone-950 dark:text-white/80">
                     <FiUser className="text-violet-500" /> Activity
                 </h3>
@@ -26,15 +26,15 @@ const StudentDashboardChart = () => {
                     <LineChart data={data}>
                         <defs>
                             <linearGradient id="studyHoursGradient" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.2}/>
+                                <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.15}/>
                                 <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0}/>
                             </linearGradient>
                             <linearGradient id="assignmentsGradient" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#AEB9E1" stopOpacity={0.2}/>
+                                <stop offset="5%" stopColor="#AEB9E1" stopOpacity={0.15}/>
                                 <stop offset="95%" stopColor="#AEB9E1" stopOpacity={0}/>
                             </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB/50" vertical={false} />
                         <XAxis 
                             dataKey="day" 
                             stroke="#6B7280"
@@ -61,10 +61,11 @@ const StudentDashboardChart = () => {
                         />
                         <Tooltip 
                             contentStyle={{
-                                backgroundColor: 'white',
-                                border: '1px solid #E5E7EB',
+                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                backdropFilter: 'blur(8px)',
+                                border: '1px solid rgba(229, 231, 235, 0.5)',
                                 borderRadius: '0.5rem',
-                                boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                             }}
                             labelStyle={{ color: '#374151', fontWeight: '500' }}
                             itemStyle={{ color: '#6B7280' }}
