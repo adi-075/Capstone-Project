@@ -1,8 +1,9 @@
-import { login, signup } from './actions';
+import { login } from './actions';
+import Link from 'next/link';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center ">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
         <h2 className="text-2xl font-semibold text-center">Login</h2>
 
@@ -35,22 +36,20 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className="flex space-x-4 justify-between">
-            <button
-              formAction={login}
-              className="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Log in
-            </button>
-
-            <button
-              formAction={signup}
-              className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors"
-            >
-              Sign up
-            </button>
-          </div>
+          <button
+            formAction={login}
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Log in
+          </button>
         </form>
+
+        <p className="text-center text-gray-600">
+          Don't have an account?{' '}
+          <Link href="/signup" className="text-blue-500 hover:text-blue-600">
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
