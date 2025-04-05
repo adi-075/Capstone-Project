@@ -4,7 +4,7 @@ import { Grid } from './Grid'
 
 export const Dashboard = () => {
     return (
-        <div className='bg-white rounded-lg shadow p-2'>
+        <div className='bg-white  dark:bg-[#101935]  rounded-lg shadow p-2 dark:text-white/80'>
             <TopBar />
             <Grid />
         </div>

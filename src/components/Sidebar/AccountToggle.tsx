@@ -49,7 +49,7 @@ export function AccountToggle() {
   };
 
   return (
-    <div className="border-b mb-4 mt-2 pb-4 border-stone-300 dark:border-white/30">
+    <div className="border-b mb-4 mt-2 pb-4 border-stone-300 dark:border-white/30 dark:text-white">
       <button className="flex p-0.5 hover:bg-stone-200 dark:hover:bg-[#0a1947] rounded transition-colors relative gap-2 w-full items-center">
         <div
           className="relative size-8 rounded shrink-0 bg-violet-500 cursor-pointer"

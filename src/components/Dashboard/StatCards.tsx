@@ -43,10 +43,10 @@ const Card = ({
     period: string;
 }) => {
     return (
-        <div className="col-span-4 p-4 rounded border border-stone-300">
+        <div className="col-span-4 p-4 rounded border border-stone-300 dark:border-white/15">
             <div className="flex mb-8 items-start justify-between">
                 <div>
-                    <h3 className="text-stone-500 mb-2 text-sm">{title}</h3>
+                    <h3 className="text-stone-500 dark:text-[#AEB9E1] mb-2 text-sm">{title}</h3>
                     <p className="text-3xl font-semibold">{value}</p>
                 </div>
                 <span
@@ -58,7 +58,7 @@ const Card = ({
                     {trend === "up" ? <FiTrendingUp /> : <FiTrendingDown />} {pillText}
                 </span>
             </div>
-            <p className="text-xs text-stone-500">{period}</p>
+            <p className="text-xs text-stone-500 dark:text-[#AEB9E1]">{period}</p>
         </div>
     );
 };
