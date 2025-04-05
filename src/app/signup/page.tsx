@@ -3,7 +3,7 @@ import { signup } from '../login/actions';
 import { useSearchParams } from 'next/navigation';
 import { useFormState } from 'react-dom';
 import { useState } from 'react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignupPage() {
   const searchParams = useSearchParams();
@@ -29,7 +29,7 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
-        <h2 className="text-2xl font-semibold text-center">Student Sign Up</h2>
+        <h2 className="text-2xl font-semibold text-center">Sign Up</h2>
 
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
@@ -76,9 +76,9 @@ export default function SignupPage() {
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
               >
                 {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
+                  <FaEyeSlash className="h-5 w-5" />
                 ) : (
-                  <EyeIcon className="h-5 w-5" />
+                  <FaEye className="h-5 w-5" />
                 )}
               </button>
             </div>
