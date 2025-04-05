@@ -44,9 +44,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600">
-          Don't have an account?{' '}
-          <Link href="/signup" className="text-blue-500 hover:text-blue-600">
+        <p className="text-sm text-gray-600">
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" className="text-blue-600 hover:text-blue-800">
             Sign up
           </Link>
         </p>
