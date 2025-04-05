@@ -23,7 +23,7 @@ export default function DashboardLayout({
         <meta name="author" content={Array.isArray(metadata.authors) ? metadata.authors.map(author => author.name ?? "").join(", ") : ""} />
       </head>
       <body className={`${inter.className} text-stone-950 bg-stone-100`}>
-        {pathname !== "/login" ? (
+        {pathname !== "/login" && pathname !== "/signup" ? (
           <main className="md:grid gap-4 p-4 grid-cols-[240px_1fr]">
             <Sidebar />
             {children}
