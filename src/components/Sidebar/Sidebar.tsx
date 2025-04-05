@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import { AccountToggle } from "./AccountToggle";
 import { Search } from "./Search";
 import { RouteSelect } from "./RouteSelect";
-import { LogoutButton } from "./LogoutButton";
 // import { Plan } from "./Plan";
 
 export const Sidebar = () => {
@@ -20,7 +19,6 @@ export const Sidebar = () => {
         <AccountToggle />
         <Search />
         <RouteSelect />
-        <LogoutButton />
       </div>
 
       {/* <Plan /> */}

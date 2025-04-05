@@ -23,7 +23,7 @@ export const LogoutButton = () => {
     return (
         <button
             onClick={handleLogout}
-            className="flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] hover:bg-stone-200 bg-transparent text-stone-500 shadow-none"
+            className="flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] hover:bg-stone-200 dark:hover:bg-[#0B1739] bg-transparent text-stone-500 dark:text-stone-100/80 shadow-none"
         >
             <FiLogOut />
             <span>Logout</span>
