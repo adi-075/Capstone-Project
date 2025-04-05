@@ -1,7 +1,6 @@
 "use client";
 import { signup } from '../login/actions';
 import { useSearchParams } from 'next/navigation';
-import { useFormState } from 'react-dom';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
