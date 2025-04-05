@@ -24,10 +24,12 @@ function getRandomAvatar(current?: string) {
 export function AccountToggle() {
   const [student, setStudent] = useState<Student | null>(null);
   const [avatar, setAvatar] = useState<string>(getRandomAvatar);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchStudent = async () => {
       try {
+        setIsLoading(true);
         const res = await fetch("/api/students");
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
@@ -35,6 +37,8 @@ export function AccountToggle() {
       } catch (error) {
         console.error("Error fetching students:", error);
         setStudent(null);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchStudent();
@@ -60,12 +64,21 @@ export function AccountToggle() {
           />
         </div>
         <div className="text-start">
-          <span className="text-sm font-bold block">
-            {student?.first_name || "No Name"}
-          </span>
-          <span className="text-xs block text-stone-500 break-words">
-            {student?.email || "No Email"}
-          </span>
+          {isLoading ? (
+            <>
+              <div className="h-4 w-20 bg-stone-200 rounded animate-pulse mb-1" />
+              <div className="h-3 w-24 bg-stone-200 rounded animate-pulse" />
+            </>
+          ) : (
+            <>
+              <span className="text-sm font-bold block">
+                {student?.first_name || "No Name"}
+              </span>
+              <span className="text-xs block text-stone-500 break-words">
+                {student?.email || "No Email"}
+              </span>
+            </>
+          )}
         </div>
       </button>
     </div>
