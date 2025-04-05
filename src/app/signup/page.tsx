@@ -3,8 +3,10 @@ import { signup } from '../login/actions';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Suspense } from 'react';
+import Link from 'next/link';
 
-export default function SignupPage() {
+function SignupForm() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
   const [showPassword, setShowPassword] = useState(false);
@@ -162,7 +164,22 @@ export default function SignupPage() {
             Sign up
           </button>
         </form>
+
+        <p className="text-sm text-gray-600">
+          Already have an account?{' '}
+          <Link href="/login" className="text-blue-600 hover:text-blue-800">
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignupForm />
+    </Suspense>
   );
 } 
