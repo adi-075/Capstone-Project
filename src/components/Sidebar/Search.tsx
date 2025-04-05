@@ -9,8 +9,8 @@ export const Search = () => {
 
     return (
         <>
-            <div className="bg-stone-200 dark:bg-[#0B1739] dark:border-white/20 dark:border-1 mb-4 relative rounded flex items-center px-2 py-1.5 text-sm cursor-pointer">
-                <FiSearch className="mr-2" />
+            <div className="bg-stone-200 dark:bg-[#0B1739] dark:border-white/15 dark:border-1 mb-4 relative rounded flex items-center px-2 py-1.5 text-sm cursor-pointer">
+                <FiSearch className="mr-2 dark:text-white" />
                 <input
                     onFocus={(e) => {
                         e.target.blur();
