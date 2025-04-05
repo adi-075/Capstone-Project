@@ -58,17 +58,17 @@ const EventsList = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+      <h2 className="text-3xl font-bold text-stone-950 dark:text-white/80 mb-8 text-center">
         Upcoming Events
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.map((event, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
+            className="relative h-96 rounded-xl overflow-hidden shadow-xl group"
           >
-            <div className="relative h-48 w-full">
+            <div className="absolute inset-0">
               {event.image ? (
                 <img
                   src={event.image}
@@ -77,26 +77,28 @@ const EventsList = () => {
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full bg-blue-200 flex items-center justify-center">
-                  <span className="text-blue-800 font-semibold">UToledo</span>
+                <div className="w-full h-full bg-stone-200 dark:bg-[#0B1739] flex items-center justify-center">
+                  <span className="text-stone-700 dark:text-[#AEB9E1] font-semibold">UToledo</span>
                 </div>
               )}
             </div>
 
-            <div className="p-4 flex flex-col h-full">
-              <div className="flex-grow">
-                <h3 className="text-xl font-bold text-blue-900 mb-2 line-clamp-2">
+            <div className="absolute inset-0 bg-black/30"></div>
+
+            <div className="absolute bottom-0 left-0 right-0">
+              <div className="bg-white/50 dark:bg-[#101935]/50 backdrop-blur-md backdrop-saturate-150 p-4 m-3 rounded-lg shadow-sm border border-stone-300/50 dark:border-white/10">
+                <h3 className="text-stone-900 dark:text-[#AEB9E1] text-lg font-medium mb-2 line-clamp-2">
                   {event.title}
                 </h3>
 
                 <div className="mb-3">
                   {event.date && (
-                    <p className="text-sm text-gray-600 flex items-center mb-1">
+                    <p className="text-sm text-stone-800 dark:text-[#AEB9E1] flex items-center mb-1">
                       {event.date}
                     </p>
                   )}
                   {event.location && (
-                    <p className="text-sm text-gray-600 flex items-center">
+                    <p className="text-sm text-stone-800 dark:text-[#AEB9E1] flex items-center">
                       <svg
                         className="w-4 h-4 mr-2"
                         fill="currentColor"
@@ -114,21 +116,22 @@ const EventsList = () => {
                 </div>
 
                 {event.descriptionText && (
-                  <p className="text-gray-700 mb-4 line-clamp-3">
+                  <p className="text-stone-800 dark:text-white/80 mb-4 line-clamp-3">
                     {event.descriptionText}
                   </p>
                 )}
-              </div>
 
-              <a
-                href={event.eventUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="w-full bg-blue-800 hover:bg-blue-900 text-white py-2 px-4 rounded transition-colors duration-300">
-                  View Details
-                </button>
-              </a>
+                <a
+                  href={event.eventUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <button className="w-full bg-violet-500 hover:bg-violet-600 text-white py-2 px-4 rounded transition-colors duration-300">
+                    View Details
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         ))}

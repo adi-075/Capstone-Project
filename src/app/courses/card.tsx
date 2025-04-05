@@ -29,8 +29,8 @@ export const CourseCard = async () => {
     if (!courses || courses.length === 0) {
         return (
             <div className="col-span-4 ml-1">
-                <p className="text-lg text-stone-600">You are not enrolled in any courses yet.</p>
-                <button className="mt-3 px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                <p className="text-lg text-stone-600 dark:text-[#AEB9E1]">You are not enrolled in any courses yet.</p>
+                <button className="mt-3 px-6 py-3 bg-violet-500 text-white rounded-lg shadow hover:bg-violet-600 transition">
                     Add Course
                 </button>
             </div>
@@ -78,10 +78,10 @@ const Card = ({
             <div className="absolute inset-0 bg-black/30"></div>
 
             <div className="absolute bottom-0 left-0 right-0">
-                <div className="bg-white/90 backdrop-blur-3xl p-4 m-3 rounded-lg shadow-sm">
-                    <h3 className="text-stone-600 text-lg font-medium mb-2">{title}</h3>
-                    <p className="text-3xl font-bold text-stone-800 mb-1">{value}</p>
-                    <p className="text-2xl font-bold text-stone-600 mb-1">{location}</p>
+                <div className="bg-white/50 dark:bg-[#101935]/50 backdrop-blur-md backdrop-saturate-150 p-4 m-3 rounded-lg shadow-sm border border-stone-300/50 dark:border-white/10">
+                    <h3 className="text-stone-600 dark:text-[#AEB9E1] text-lg font-medium mb-2">{title}</h3>
+                    <p className="text-3xl font-bold text-stone-800 dark:text-white/80 mb-1">{value}</p>
+                    <p className="text-2xl font-bold text-stone-600 dark:text-[#AEB9E1] mb-1">{location}</p>
                 </div>
             </div>
         </div>
