@@ -3,6 +3,7 @@
 import { FiLogOut } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { createClient } from '@/app/utils/supabase/client';
 
 export const LogoutButton = () => {
     const router = useRouter();
@@ -14,6 +15,12 @@ export const LogoutButton = () => {
 
         try {
             setIsLoggingOut(true);
+
+            // First, sign out from Supabase client-side
+            const supabase = createClient();
+            await supabase.auth.signOut();
+
+            // Then call our API endpoint
             const res = await fetch('/auth/signout', {
                 method: 'POST',
                 cache: 'no-store',
@@ -24,17 +31,13 @@ export const LogoutButton = () => {
                 return;
             }
 
-            if (!res.ok) {
-                throw new Error('Failed to logout');
-            }
-
-            // Fallback to login page if no redirect
-            router.push('/login');
-            router.refresh();
+            // If we reach here, redirect to login page
+            window.location.href = '/login';
             
         } catch (error) {
             console.error('Logout failed:', error);
-            alert('Failed to logout. Please try again.');
+            // Even if there's an error, try to redirect to login
+            window.location.href = '/login';
         } finally {
             setIsLoggingOut(false);
         }
