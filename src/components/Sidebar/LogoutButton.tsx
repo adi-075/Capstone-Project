@@ -1,12 +1,10 @@
 'use client';
 
 import { FiLogOut } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { createClient } from '@/app/utils/supabase/client';
 
 export const LogoutButton = () => {
-    const router = useRouter();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const handleLogout = async () => {
