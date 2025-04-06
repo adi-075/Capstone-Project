@@ -16,27 +16,20 @@ export const LogoutButton = () => {
             setIsLoggingOut(true);
             const res = await fetch('/auth/signout', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                cache: 'no-store',
             });
 
-            if (!res.ok) {
-                throw new Error(await res.text());
-            }
-
-            // Clear any local storage or session data if needed
-            localStorage.clear();
-            sessionStorage.clear();
-
-            // Use router.push for client-side navigation
             if (res.redirected) {
-                router.push(res.url);
-            } else {
-                router.push('/login'); // Fallback to login page
+                window.location.href = res.url;
+                return;
             }
-            
-            // Force a hard refresh after navigation
+
+            if (!res.ok) {
+                throw new Error('Failed to logout');
+            }
+
+            // Fallback to login page if no redirect
+            router.push('/login');
             router.refresh();
             
         } catch (error) {
