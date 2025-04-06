@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { FiUpload, FiSend, FiX } from 'react-icons/fi'
+import { FiPlus, FiSend, FiX } from 'react-icons/fi'
 
 interface PromptProps {
     onSubmit: (note: string) => void;
@@ -16,49 +16,72 @@ export function Prompt({ onSubmit }: PromptProps) {
         if (e.target.files?.[0]) setFile(e.target.files[0])
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e?: React.FormEvent) => {
+        e?.preventDefault()
         if (!note.trim() && !file) return
         onSubmit(note)
         setNote('')
         setFile(null)
     }
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault()
+            handleSubmit()
+        }
+    }
+
     useEffect(() => {
         if (textareaRef.current) {
             textareaRef.current.style.height = 'auto'
-            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+            const maxHeight = 200 // Maximum height in pixels
+            const scrollHeight = textareaRef.current.scrollHeight
+            textareaRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`
         }
     }, [note])
 
     return (
-        <div className="fixed bottom-4 left-[260px] right-4 max-w-3xl mx-auto z-50">
-            {file && (
-                <div className="flex items-center justify-between bg-gray-100 py-1 px-3 rounded-t-md border border-b-0 border-gray-200 text-sm text-gray-600">
-                    <span>{file.name}</span>
-                    <button onClick={() => setFile(null)}>
-                        <FiX className="text-gray-500 hover:text-gray-700" />
-                    </button>
-                </div>
-            )}
-            <div className="flex items-end bg-white border border-gray-200 rounded-xl shadow-md p-3 gap-2">
-                <label className="cursor-pointer p-2 text-gray-500 hover:text-gray-700">
-                    <FiUpload className="text-lg" />
-                    <input type="file" className="hidden" onChange={handleFileChange} />
-                </label>
-                <textarea
-                    ref={textareaRef}
-                    rows={1}
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    placeholder="Send a message or attach notes..."
-                    className="flex-grow resize-none outline-none text-sm py-2"
-                />
-                <button
-                    onClick={handleSubmit}
-                    className="p-2 rounded-full bg-violet-500 text-white hover:bg-violet-600 transition"
-                >
-                    <FiSend />
-                </button>
+        <div className="sticky bottom-0 left-0 right-0 bg-stone-100 dark:bg-[#0A1535] border-t border-stone-300/50 dark:border-white/10">
+            <div className="max-w-3xl mx-auto py-4 px-4">
+                {file && (
+                    <div className="flex items-center justify-between bg-stone-200/50 dark:bg-[#0F1F4A] py-2 px-3 rounded-md mb-2 text-sm text-stone-600 dark:text-[#AEB9E1]">
+                        <span className="truncate">{file.name}</span>
+                        <button onClick={() => setFile(null)}>
+                            <FiX className="text-stone-500 hover:text-stone-700 dark:hover:text-[#AEB9E1]" />
+                        </button>
+                    </div>
+                )}
+                <form onSubmit={handleSubmit} className="relative">
+                    <div className="relative flex items-center">
+                        <label className="absolute left-3 cursor-pointer text-stone-500 hover:text-stone-700 dark:hover:text-[#AEB9E1]">
+                            <FiPlus className="text-xl" />
+                            <input type="file" className="hidden" onChange={handleFileChange} />
+                        </label>
+                        <textarea
+                            ref={textareaRef}
+                            rows={1}
+                            value={note}
+                            onChange={(e) => setNote(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Message..."
+                            className="w-full resize-none rounded-lg border border-stone-300/50 dark:border-white/10 bg-white/70 dark:bg-[#0F1F4A] text-stone-950 dark:text-white/80 py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:focus:ring-[#2563EB] overflow-hidden"
+                            style={{ maxHeight: '200px' }}
+                        />
+                        <div className="absolute right-2 bottom-2">
+                            <button
+                                type="submit"
+                                disabled={!note.trim() && !file}
+                                className={`p-2 rounded-md ${
+                                    note.trim() || file
+                                        ? 'bg-stone-700 text-white hover:bg-stone-800 dark:bg-[#2563EB] dark:hover:bg-[#1E3A8A]'
+                                        : 'bg-stone-200 dark:bg-[#0F1F4A] text-stone-400 dark:text-stone-500'
+                                } transition-colors`}
+                            >
+                                <FiSend className="text-xl" />
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     )
