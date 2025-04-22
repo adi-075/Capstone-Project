@@ -27,26 +27,26 @@ const sampleResources = [
         icon: "/scripting.jpg"
     },
     {
-        title: "RocketHacks",
-        description: "Explore hackathon resources and competition guidelines.",
-        url: "#",
-        category: "Events",
-        icon: "/rockethacks.png"
-    },
-    {
         title: "Course Materials",
         description: "Access supplementary materials for your courses.",
-        url: "#",
+        url: "https://utoledo.bncollege.com/course-material/course-finder",
         category: "Academic",
         icon: "/courses/1.avif"
     },
     {
-        title: "Study Resources",
-        description: "Find study guides and academic support materials.",
-        url: "#",
-        category: "Academic",
+        title: "Counselling Services",
+        description: "Are you feeling stressed? Need help with your studies? The University of Toledo offers counselling services to help you.",
+        url: "https://www.utoledo.edu/studentaffairs/counseling/",
+        category: "Mental Health",
         icon: "/courses/2.avif"
-    }
+    },
+    {
+        title: "RocketHacks",
+        description: "Explore hackathon resources and competition guidelines.",
+        url: "https://rockethacks.org/",
+        category: "Events",
+        icon: "/rockethacks.png"
+    },
 ];
 
 export default function Resources() {
