@@ -1,18 +1,20 @@
 declare module 'pdf-parse' {
     interface PDFData {
-        text: string;
         numpages: number;
         numrender: number;
         info: {
             PDFFormatVersion: string;
             IsAcroFormPresent: boolean;
             IsXFAPresent: boolean;
-            [key: string]: any;
+            [key: string]: string | boolean;
         };
-        metadata: any;
+        metadata: {
+            [key: string]: string;
+        };
+        text: string;
         version: string;
     }
 
-    function pdfParse(dataBuffer: Buffer): Promise<PDFData>;
-    export = pdfParse;
+    function PDFParse(dataBuffer: Buffer | ArrayBuffer): Promise<PDFData>;
+    export = PDFParse;
 } 
