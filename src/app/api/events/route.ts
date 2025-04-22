@@ -14,12 +14,16 @@ function getDateFromDaysAgo(daysAgo: number): string {
 // Default configuration with dynamic dates
 const getDefaultConfig = () => ({
   calendarId: "602bf64e-2dad-4996-94d5-158c189ba52c",
-  // Start date is now one week (7 days) ago
-  startDate: getDateFromDaysAgo(31),
-  // End date is current date
-  endDate: getCurrentDateISO(),
+  // Start date is today
+  startDate: getCurrentDateISO(),
+  // End date is 30 days from now
+  endDate: getDateFromDaysAgo(-30),
   categoryId: "d346a1d6-3db3-4054-b161-bb1eb358b704",
-  additionalParams: {} as Record<string, string>,
+  additionalParams: {
+    limit: "100", // Maximum number of events to return
+    sort: "start", // Sort by start date
+    order: "asc", // Ascending order (earliest first)
+  } as Record<string, string>,
 });
 
 export async function GET(): Promise<Response> {
