@@ -4,7 +4,7 @@ import { FiBook, FiAward } from "react-icons/fi";
 
 export const GradingGrid = () => {
     return (
-        <div className="flex flex-wrap gap-5">
+        <div className="flex gap-5">
             <GradeCard
                 course="ENGT 4050"
                 value="A"
