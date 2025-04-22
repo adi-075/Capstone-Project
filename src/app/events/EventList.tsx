@@ -13,6 +13,7 @@ interface Event {
   eventUrl: string;
   tags: string[];
   start: string; // Add start date for sorting
+  id: string;
 }
 
 const allowedTags = [
@@ -49,7 +50,14 @@ const EventsList = () => {
         // Ensure skeleton shows for at least 1 second
         const startTime = Date.now();
         
-        const response = await fetch("/api/events");
+        // Get the ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        
+        // Construct the API URL with the ID parameter if it exists
+        const apiUrl = id ? `/api/events?id=${id}` : '/api/events';
+        
+        const response = await fetch(apiUrl);
         const data = await response.json();
 
         // Filter and sort events
@@ -186,7 +194,7 @@ const EventsList = () => {
                     )}
 
                     <a
-                      href="https://www.utoledo.edu/events/university-events/"
+                      href={`https://www.utoledo.edu/events/university-events/#event-details/${event.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block"

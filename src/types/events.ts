@@ -5,4 +5,5 @@ export interface Events {
     endDate?: string;
     categoryId?: string | null;
     additionalParams?: Record<string, string>;
+    id?: string;
 } 

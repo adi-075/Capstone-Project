@@ -26,10 +26,14 @@ const getDefaultConfig = () => ({
   } as Record<string, string>,
 });
 
-export async function GET(): Promise<Response> {
+export async function GET(request: Request): Promise<Response> {
   try {
     // Get fresh config with dynamic dates
     const config = getDefaultConfig();
+
+    // Get the ID from the URL search params
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
 
     const baseUrl = "https://api.calendar.moderncampus.net/pubcalendar/";
     const url = new URL(`${baseUrl}${config.calendarId}/events`);
@@ -40,6 +44,11 @@ export async function GET(): Promise<Response> {
 
     if (config.categoryId) {
       url.searchParams.append("category", config.categoryId);
+    }
+
+    // Add ID parameter if provided
+    if (id) {
+      url.searchParams.append("id", id);
     }
 
     // Add any additional parameters
