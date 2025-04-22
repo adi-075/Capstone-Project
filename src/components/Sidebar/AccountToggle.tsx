@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Student } from "@/types/student";
 
 const avatars = [
-  "/avatar/avatar3.bmp"  
+  "/avatar/avatar.png"  
 ];
 
 export function AccountToggle() {
@@ -35,7 +35,7 @@ export function AccountToggle() {
       <button className="flex p-0.5 hover:bg-stone-200 dark:hover:bg-[#0a1947] rounded transition-colors relative gap-2 w-full items-center">
         <div
           className="relative size-8 rounded shrink-0 bg-violet-500 cursor-pointer"
-          title="Click to change avatar"
+          title="Avatar"
         >
           <Image
             src={avatars[0]}
