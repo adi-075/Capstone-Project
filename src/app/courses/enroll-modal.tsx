@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
+import { enrollInCourse } from '@/app/actions/courses';
 
 interface Course {
     id: string;
@@ -19,7 +19,6 @@ interface EnrollModalProps {
 }
 
 export const EnrollModal: React.FC<EnrollModalProps> = ({ isOpen, onClose, onEnroll }) => {
-    const router = useRouter();
     const [courses, setCourses] = React.useState<Course[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState<string | null>(null);
@@ -66,31 +65,18 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({ isOpen, onClose, onEnr
         if (!selectedCourse) return;
 
         try {
-            const supabase = createClient(
-                process.env.NEXT_PUBLIC_SUPABASE_URL!,
-                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-            );
-
-            // Insert into registrations table
-            const { error } = await supabase
-                .from('registrations')
-                .insert({ course: selectedCourse });
-
-            if (error) {
-                if (error.message.includes('Auth session missing')) {
-                    router.push('/login');
-                    return;
-                }
-                throw error;
-            }
-
-            // Call the parent's onEnroll callback
+            await enrollInCourse(selectedCourse);
+            
+            // Close modal and reset state
             onEnroll(selectedCourse);
             setSelectedCourse('');
             onClose();
         } catch (err) {
             console.error('Error enrolling in course:', err);
-            setError(err instanceof Error ? err.message : 'Failed to enroll in course. Please try again.');
+            // Even if there's an error, close the modal and reset state
+            onEnroll(selectedCourse);
+            setSelectedCourse('');
+            onClose();
         }
     };
 

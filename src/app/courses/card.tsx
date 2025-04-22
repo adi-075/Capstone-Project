@@ -5,12 +5,11 @@ import Image from "next/image";
 import { fetchCourses } from "@/app/actions/courses";
 
 interface Course {
-    student_id: number;
-    student_name: string;
     course_code: string;
     course_name: string;
     building: string;
     room: string;
+    professor_name: string;
 }
 
 const courseImages = [
@@ -82,9 +81,9 @@ export const CourseCard = () => {
         <>
             {courses.map((course: Course) => (
                 <Card
-                    key={`${course.course_code}-${course.student_id}`}
+                    key={course.course_code}
                     title={course.course_code}
-                    studentName={course.student_name}
+                    professorName={course.professor_name}
                     imageUrl={getCourseImage(course.course_code)}
                     courseName={course.course_name}
                     building={course.building}
@@ -97,14 +96,14 @@ export const CourseCard = () => {
 
 const Card = ({
     title,
-    studentName,
+    professorName,
     imageUrl,
     courseName,
     building,
     room
 }: {
     title: string;
-    studentName: string;
+    professorName: string;
     imageUrl: string;
     courseName: string;
     building: string;
@@ -133,7 +132,7 @@ const Card = ({
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            {studentName}
+                            {professorName}
                         </p>
                         <p className="flex items-center">
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

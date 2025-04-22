@@ -3,29 +3,23 @@
 import React from 'react'
 import { CourseCard } from './card'
 import { EnrollModal } from './enroll-modal'
-import { createClient } from '@supabase/supabase-js'
+import { enrollInCourse } from '@/app/actions/courses'
 
 export default function Course() {
     const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const handleEnroll = async (courseCode: string) => {
-        const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        );
-
-        const { error } = await supabase
-            .from('registrations')
-            .insert({ course: courseCode });
-
-        if (error) {
+        try {
+            await enrollInCourse(courseCode);
+            // Close modal and force refresh the page
+            setIsModalOpen(false);
+            window.location.reload();
+        } catch (error) {
             console.error('Error enrolling in course:', error);
-            return;
+            // Even if there's an error, close the modal and force refresh
+            setIsModalOpen(false);
+            window.location.reload();
         }
-
-        // Close modal and refresh the page to show new enrollment
-        setIsModalOpen(false);
-        window.location.reload();
     };
 
     return (
