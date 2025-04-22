@@ -4,22 +4,32 @@ import { useState, useRef, useEffect } from 'react'
 import { FiPlus, FiSend, FiX } from 'react-icons/fi'
 
 interface PromptProps {
-    onSubmit: (note: string) => void;
+    onSubmit: (note: string, file?: File) => void;
+    isLoading?: boolean;
+    disabled?: boolean;
 }
 
-export function Prompt({ onSubmit }: PromptProps) {
+export function Prompt({ onSubmit, isLoading = false, disabled = false }: PromptProps) {
     const [note, setNote] = useState('')
     const [file, setFile] = useState<File | null>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.[0]) setFile(e.target.files[0])
+        if (e.target.files?.[0]) {
+            const selectedFile = e.target.files[0];
+            if (selectedFile.type === 'application/pdf') {
+                setFile(selectedFile);
+            } else {
+                alert('Please upload a PDF file');
+                e.target.value = ''; // Clear the input
+            }
+        }
     }
 
     const handleSubmit = (e?: React.FormEvent) => {
         e?.preventDefault()
         if (!note.trim() && !file) return
-        onSubmit(note)
+        onSubmit(note, file || undefined)
         setNote('')
         setFile(null)
     }
@@ -55,7 +65,12 @@ export function Prompt({ onSubmit }: PromptProps) {
                     <div className="relative flex items-center">
                         <label className="absolute left-3 cursor-pointer text-stone-500 hover:text-stone-700 dark:hover:text-[#AEB9E1]">
                             <FiPlus className="text-xl" />
-                            <input type="file" className="hidden" onChange={handleFileChange} />
+                            <input
+                                type="file"
+                                className="hidden" 
+                                onChange={handleFileChange}
+                                accept=".pdf"
+                            />
                         </label>
                         <textarea
                             ref={textareaRef}
@@ -66,18 +81,19 @@ export function Prompt({ onSubmit }: PromptProps) {
                             placeholder="Message..."
                             className="w-full resize-none rounded-lg border border-stone-300/50 dark:border-white/10 bg-white/70 dark:bg-[#0F1F4A] text-stone-950 dark:text-white/80 py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:focus:ring-[#2563EB] overflow-hidden"
                             style={{ maxHeight: '200px' }}
+                            disabled={isLoading || disabled}
                         />
                         <div className="absolute right-2 bottom-2">
                             <button
                                 type="submit"
-                                disabled={!note.trim() && !file}
+                                disabled={!note.trim() && !file || isLoading || disabled}
                                 className={`p-2 rounded-md ${
-                                    note.trim() || file
+                                    (note.trim() || file) && !isLoading && !disabled
                                         ? 'bg-stone-700 text-white hover:bg-stone-800 dark:bg-[#2563EB] dark:hover:bg-[#1E3A8A]'
                                         : 'bg-stone-200 dark:bg-[#0F1F4A] text-stone-400 dark:text-stone-500'
                                 } transition-colors`}
                             >
-                                <FiSend className="text-xl" />
+                                <FiSend className={`text-xl ${isLoading ? 'animate-spin' : ''}`} />
                             </button>
                         </div>
                     </div>

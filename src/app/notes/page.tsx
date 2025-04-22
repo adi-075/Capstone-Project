@@ -1,15 +1,114 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Prompt } from './prompt'
+import { createClient } from '@/app/utils/supabase/client'
+import ReactMarkdown from 'react-markdown'
 
 interface Message {
     role: 'user' | 'assistant';
     content: string;
 }
 
+const MAX_PROMPTS = 5
+
 export default function NotesPage() {
     const [messages, setMessages] = useState<Message[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [promptCount, setPromptCount] = useState(0)
+    const supabase = createClient()
+
+    // Initialize prompt count from localStorage
+    useEffect(() => {
+        const today = new Date().toDateString()
+        const storedData = localStorage.getItem('geminiPromptData')
+        
+        if (storedData) {
+            const { date, count } = JSON.parse(storedData)
+            if (date === today) {
+                setPromptCount(count)
+            } else {
+                // Reset count for new day
+                localStorage.setItem('geminiPromptData', JSON.stringify({ date: today, count: 0 }))
+                setPromptCount(0)
+            }
+        } else {
+            // Initialize for first time
+            localStorage.setItem('geminiPromptData', JSON.stringify({ date: today, count: 0 }))
+        }
+    }, [])
+
+    const handleSubmit = async (content: string, file?: File) => {
+        if (!content.trim() && !file) return
+
+        // Check prompt limit
+        if (promptCount >= MAX_PROMPTS) {
+            setMessages(prev => [...prev, { 
+                role: 'assistant', 
+                content: 'You have exceeded your daily API limit' 
+            }])
+            return
+        }
+
+        try {
+            setIsLoading(true)
+            // Add user message
+            setMessages(prev => [...prev, { 
+                role: 'user', 
+                content: file ? `[PDF: ${file.name}] ${content}` : content 
+            }])
+
+            // Get user's session
+            const { data: { session } } = await supabase.auth.getSession()
+            if (!session) {
+                throw new Error('Not authenticated')
+            }
+
+            // Prepare form data
+            const formData = new FormData()
+            if (content.trim()) {
+                formData.append('message', content)
+            }
+            if (file) {
+                formData.append('file', file)
+            }
+
+            // Call Gemini API
+            const response = await fetch('/api/gemini', {
+                method: 'POST',
+                body: formData,
+            })
+
+            if (!response.ok) {
+                const errorText = await response.text()
+                try {
+                    const errorData = JSON.parse(errorText)
+                    throw new Error(errorData.error || 'Failed to get response from Gemini')
+                } catch {
+                    throw new Error(`Server error: ${response.status}`)
+                }
+            }
+
+            const data = await response.json()
+            
+            // Add assistant message
+            setMessages(prev => [...prev, { role: 'assistant', content: data.response }])
+            
+            // Update prompt count in state and localStorage
+            const newCount = promptCount + 1
+            setPromptCount(newCount)
+            const today = new Date().toDateString()
+            localStorage.setItem('geminiPromptData', JSON.stringify({ date: today, count: newCount }))
+        } catch (error) {
+            console.error('Error:', error)
+            setMessages(prev => [...prev, { 
+                role: 'assistant', 
+                content: error instanceof Error ? error.message : 'Sorry, I encountered an error. Please try again.' 
+            }])
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return (
         <div className="relative h-screen flex flex-col bg-stone-100 dark:bg-[#0A1535]">
@@ -17,7 +116,8 @@ export default function NotesPage() {
                 {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center text-stone-500 dark:text-[#AEB9E1]">
                         <h2 className="text-2xl font-medium mb-2">How can I help you today?</h2>
-                        <p className="text-sm">Type a message or upload a file to get started.</p>
+                        <p className="text-sm">Type a message or upload a PDF file to get started.</p>
+                        <p className="text-sm mt-2">You have {MAX_PROMPTS - promptCount} prompts remaining today.</p>
                     </div>
                 ) : (
                     <div className="flex flex-col">
@@ -38,8 +138,8 @@ export default function NotesPage() {
                                     }`}>
                                         {message.role === 'user' ? 'U' : 'A'}
                                     </div>
-                                    <div className="flex-1 text-stone-950 dark:text-white/90">
-                                        {message.content}
+                                    <div className="flex-1 text-stone-950 dark:text-white/90 prose dark:prose-invert max-w-none">
+                                        <ReactMarkdown>{message.content}</ReactMarkdown>
                                     </div>
                                 </div>
                             </div>
@@ -49,14 +149,9 @@ export default function NotesPage() {
             </div>
 
             <Prompt
-                onSubmit={(content) => {
-                    if (!content.trim()) return
-                    setMessages(prev => [
-                        ...prev,
-                        { role: 'user', content },
-                        { role: 'assistant', content: 'This is a placeholder response. In a real implementation, this would be generated by an AI model.' }
-                    ])
-                }}
+                onSubmit={handleSubmit}
+                isLoading={isLoading}
+                disabled={promptCount >= MAX_PROMPTS}
             />
         </div>
     )
