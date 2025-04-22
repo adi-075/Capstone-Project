@@ -6,24 +6,24 @@ import { ResourceCard } from './ResourceCard'
 
 const sampleResources = [
     {
-        title: "Capstone Project",
-        description: "Access resources and guidelines for your capstone project development.",
-        url: "#",
+        title: "Find your Major",
+        description: "Find out what you're interested in and what you're good at.",
+        url: "https://www.utoledo.edu/programs/",
         category: "Academic",
         icon: "/capstone.jpg"
     },
     {
-        title: "Information Security",
-        description: "Learn about cybersecurity best practices and resources.",
-        url: "#",
-        category: "Technical",
+        title: "Plan of Study",
+        description: "Find out what classes you need to take to get your degree.",
+        url: "https://catalog.utoledo.edu/undergraduate/engineering/engineering-technology/bs-information-technology/",
+        category: "Academic",
         icon: "/information-security.jpg"
     },
     {
-        title: "Scripting Resources",
-        description: "Find tutorials and guides for various scripting languages.",
-        url: "#",
-        category: "Technical",
+        title: "International Student",
+        description: "If you're an international student, find out resources for you.",
+        url: "https://www.utoledo.edu/cisp/international/",
+        category: "International",
         icon: "/scripting.jpg"
     },
     {
