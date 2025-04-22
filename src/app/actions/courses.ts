@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function enrollInCourse(courseCode: string) {
     try {
-        const supabase = createClient()
+        const supabase = await createClient()
 
         // Get the current user to verify authentication
         const { data: { session }, error: sessionError } = await supabase.auth.getSession()
@@ -57,7 +57,7 @@ export async function enrollInCourse(courseCode: string) {
 
 export async function fetchCourses() {
     try {
-        const supabase = createClient()
+        const supabase = await createClient()
 
         // Get the current user to verify authentication
         const { data: { session }, error: sessionError } = await supabase.auth.getSession()
@@ -90,7 +90,7 @@ export async function fetchCourses() {
             throw new Error('Student not found')
         }
 
-        // Get registered courses with course details
+        // Get registered courses with course and professor details
         const { data: registrations, error: regError } = await supabase
             .from('registrations')
             .select(`
@@ -99,7 +99,10 @@ export async function fetchCourses() {
                     course_code,
                     name,
                     building,
-                    room
+                    room,
+                    professor:professor (
+                        name
+                    )
                 )
             `)
             .eq('user_id', session.user.id)
@@ -115,7 +118,7 @@ export async function fetchCourses() {
         }
 
         // Remove duplicates by keeping only the most recent registration for each course
-        const uniqueCourses = registrations.reduce((acc: any[], current) => {
+        const uniqueCourses = registrations.reduce((acc: Array<typeof registrations[0]>, current) => {
             const exists = acc.find(item => item.course === current.course)
             if (!exists) {
                 acc.push(current)
@@ -127,12 +130,11 @@ export async function fetchCourses() {
         const transformedData = uniqueCourses.map(registration => {
             console.log('Registration data:', registration); // Debug log
             return {
-                student_id: studentData.id,
-                student_name: `${studentData.first_name} ${studentData.last_name}`,
                 course_code: registration.course?.course_code || String(registration.course),
                 course_name: registration.course?.name || 'Unknown Course',
                 building: registration.course?.building || 'Unknown Building',
-                room: registration.course?.room || 'Unknown Room'
+                room: registration.course?.room || 'Unknown Room',
+                professor_name: registration.course?.professor?.name || 'Unknown Professor'
             }
         })
 
