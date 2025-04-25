@@ -1,29 +1,27 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { OpenAI } from 'openai';
 import { NextResponse } from 'next/server';
 
-// Initialize Gemini API
-const apiKey = process.env.GEMINI_API_KEY;
+// Initialize OpenAI API
+const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
-    console.error('GEMINI_API_KEY is not configured in environment variables');
+    console.error('OPENAI_API_KEY is not configured in environment variables');
 }
 
-const genAI = new GoogleGenerativeAI(apiKey || '');
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const openai = new OpenAI({
+    apiKey: apiKey,
+});
 
 // Add route configuration
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
-// Maximum content length for free tier
-// const MAX_CONTENT_LENGTH = 10000;
-
 export async function POST(request: Request) {
     try {
         // Check API key
         if (!apiKey) {
-            console.error('GEMINI_API_KEY is missing');
+            console.error('OPENAI_API_KEY is missing');
             return NextResponse.json(
-                { error: 'Gemini API key is not configured' },
+                { error: 'OpenAI API key is not configured' },
                 { status: 500 }
             );
         }
@@ -71,19 +69,29 @@ export async function POST(request: Request) {
             }
         }
 
-        // Generate content with Gemini
+        // Generate content with OpenAI
         try {
-            console.log('Sending request to Gemini API');
-            const result = await model.generateContent(content);
-            const response = await result.response;
-            const text = response.text();
-            console.log('Received response from Gemini API');
+            console.log('Sending request to OpenAI API');
+            const completion = await openai.chat.completions.create({
+                model: "gpt-4-turbo-preview",
+                messages: [
+                    {
+                        role: "user",
+                        content: content
+                    }
+                ],
+                temperature: 0.7,
+                max_tokens: 1000,
+            });
 
-            return NextResponse.json({ response: text });
+            const response = completion.choices[0].message.content;
+            console.log('Received response from OpenAI API');
+
+            return NextResponse.json({ response });
         } catch (error) {
-            console.error('Gemini API Error:', error);
+            console.error('OpenAI API Error:', error);
             return NextResponse.json(
-                { error: 'Failed to generate response from Gemini API' },
+                { error: 'Failed to generate response from OpenAI API' },
                 { status: 500 }
             );
         }
@@ -94,4 +102,4 @@ export async function POST(request: Request) {
             { status: 500 }
         );
     }
-}
+} 
