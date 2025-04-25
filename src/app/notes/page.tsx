@@ -41,8 +41,8 @@ export default function NotesPage() {
                 formData.append('file', file)
             }
 
-            // Call Gemini API
-            const response = await fetch('/api/gemini', {
+            // Call OpenAI API
+            const response = await fetch('/api/openai', {
                 method: 'POST',
                 body: formData,
             })
@@ -51,7 +51,7 @@ export default function NotesPage() {
                 const errorText = await response.text()
                 try {
                     const errorData = JSON.parse(errorText)
-                    throw new Error(errorData.error || 'Failed to get response from Gemini')
+                    throw new Error(errorData.error || 'Failed to get response from OpenAI')
                 } catch {
                     throw new Error(`Server error: ${response.status}`)
                 }
