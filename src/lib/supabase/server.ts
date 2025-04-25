@@ -22,7 +22,7 @@ export async function createClient() {
                 },
             },
             auth: {
-                persistSession: true,
+                persistSession: false,
                 autoRefreshToken: true,
                 detectSessionInUrl: true
             }
