@@ -26,47 +26,14 @@ export async function POST(request: Request) {
             );
         }
 
-        // Parse form data
-        const formData = await request.formData();
-        const message = formData.get('message') as string;
-        const file = formData.get('file') as File | null;
+        // Parse request body
+        const { message } = await request.json();
 
-        console.log('Received request:', { 
-            hasMessage: !!message, 
-            hasFile: !!file,
-            fileType: file?.type 
-        });
-
-        if (!message && !file) {
+        if (!message) {
             return NextResponse.json(
-                { error: 'No message or file provided' },
+                { error: 'No message provided' },
                 { status: 400 }
             );
-        }
-
-        let content = message || '';
-
-        // Handle PDF file if present
-        if (file) {
-            if (file.type !== 'application/pdf') {
-                return NextResponse.json(
-                    { error: 'Only PDF files are supported' },
-                    { status: 400 }
-                );
-            }
-
-            try {
-                console.log('Processing PDF file:', file.name);
-                // For now, we'll just acknowledge the PDF file
-                content = `I received a PDF file named "${file.name}". Currently, PDF processing is under development. Please try again later or send a text message instead.`;
-                console.log('PDF processing message sent');
-            } catch (error) {
-                console.error('Error handling PDF:', error);
-                return NextResponse.json(
-                    { error: 'Failed to process PDF file' },
-                    { status: 400 }
-                );
-            }
         }
 
         // Generate content with OpenAI
@@ -81,7 +48,7 @@ export async function POST(request: Request) {
                     },
                     {
                         role: "user",
-                        content: content
+                        content: message
                     }
                 ],
                 temperature: 0.7,

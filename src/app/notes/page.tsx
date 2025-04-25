@@ -54,7 +54,7 @@ export default function NotesPage() {
                         className="flex items-center gap-2 px-4 py-2 bg-stone-700 dark:bg-[#1E3A8A] text-white rounded-lg hover:bg-stone-800 dark:hover:bg-[#1E40AF] transition-colors"
                     >
                         <Plus size={20} />
-                        Chat with AI
+                        Summarize text with AI
                     </Link>
                 </div>
 

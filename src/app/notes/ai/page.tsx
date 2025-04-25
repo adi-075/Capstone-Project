@@ -15,15 +15,15 @@ export default function NotesAIPage() {
     const [isLoading, setIsLoading] = useState(false)
     const supabase = createClient()
 
-    const handleSubmit = async (content: string, file?: File) => {
-        if (!content.trim() && !file) return
+    const handleSubmit = async (content: string) => {
+        if (!content.trim()) return
 
         try {
             setIsLoading(true)
             // Add user message
             setMessages(prev => [...prev, { 
                 role: 'user', 
-                content: file ? `[PDF: ${file.name}] ${content}` : content 
+                content: content 
             }])
 
             // Get user's session
@@ -32,19 +32,13 @@ export default function NotesAIPage() {
                 throw new Error('Not authenticated')
             }
 
-            // Prepare form data
-            const formData = new FormData()
-            if (content.trim()) {
-                formData.append('message', content)
-            }
-            if (file) {
-                formData.append('file', file)
-            }
-
             // Call OpenAI API
             const response = await fetch('/api/openai', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: content }),
             })
 
             if (!response.ok) {
@@ -78,7 +72,7 @@ export default function NotesAIPage() {
                 {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center text-stone-500 dark:text-[#AEB9E1]">
                         <h2 className="text-2xl font-medium mb-2">How can I help you today?</h2>
-                        <p className="text-sm">Type a message or upload a PDF file to get started.</p>
+                        <p className="text-sm">Type something to get summary.</p>
                     </div>
                 ) : (
                     <div className="flex flex-col">
