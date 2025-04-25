@@ -4,6 +4,8 @@ import { Sidebar } from "@/components/Sidebar/Sidebar";
 import "@/app/globals.css";
 import { usePathname } from "next/navigation";
 import { metadata } from "@/app/metadata";
+import { useEffect } from "react";
+import { setupAutoLogout } from "@/app/utils/autoLogout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +15,17 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+
+  // Set up auto-logout functionality
+  useEffect(() => {
+    // Only setup auto-logout for authenticated routes
+    if (pathname !== "/login" && pathname !== "/signup" && pathname !== "/404") {
+      const cleanupAutoLogout = setupAutoLogout();
+      
+      // Clean up event listeners when component unmounts
+      return cleanupAutoLogout;
+    }
+  }, [pathname]);
 
   return (
     <html lang="en">
