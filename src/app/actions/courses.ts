@@ -146,4 +146,36 @@ export async function fetchCourses() {
         }
         throw new Error('Failed to fetch courses: Unknown error')
     }
+}
+
+export async function deleteCourse(courseCode: string) {
+    try {
+        const supabase = await createClient()
+
+        // Get the current user to verify authentication
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+        
+        if (sessionError || !session) {
+            throw new Error('User not authenticated')
+        }
+
+        // Delete the course registration
+        const { error: deleteError } = await supabase
+            .from('registrations')
+            .delete()
+            .eq('user_id', session.user.id)
+            .eq('course', courseCode)
+
+        if (deleteError) {
+            throw new Error(`Error deleting course: ${deleteError.message}`)
+        }
+
+        return { success: true }
+    } catch (error) {
+        console.error('Error in deleteCourse:', error)
+        if (error instanceof Error) {
+            throw new Error(error.message)
+        }
+        throw new Error('Failed to delete course')
+    }
 } 
