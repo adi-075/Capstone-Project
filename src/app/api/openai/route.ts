@@ -76,6 +76,10 @@ export async function POST(request: Request) {
                 model: "gpt-4-turbo-preview",
                 messages: [
                     {
+                        role: "system",
+                        content: "Summarize the following student notes clearly and concisely. Preserve the original meaning and intent while removing any redundancy or informal language. Structure the summary in a coherent, academic tone suitable for formal documentation. Ensure all essential elements are retained to support understanding for someone unfamiliar with the source material."
+                    },
+                    {
                         role: "user",
                         content: content
                     }
