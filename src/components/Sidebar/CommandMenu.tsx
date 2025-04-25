@@ -83,7 +83,7 @@ export const CommandMenu = ({
                         heading="Courses"
                         className="text-sm text-stone-400 dark:text-stone-500 mb-3"
                     >
-                        <Link href="/courses" prefetch={true}>
+                        <Link href="/courses">
                             <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 dark:text-white/80 hover:bg-stone-200 dark:hover:bg-white/10 rounded items-center gap-2">
                                 <FiLink />
                                 Courses
@@ -95,10 +95,39 @@ export const CommandMenu = ({
                         heading="Events"
                         className="text-sm text-stone-400 dark:text-stone-500 mb-3"
                     >
-                        <Link href="/events" prefetch={true}>
+                        <Link href="/events">
                             <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 dark:text-white/80 hover:bg-stone-200 dark:hover:bg-white/10 rounded items-center gap-2">
                                 <FiLink />
                                 Events Page
+                            </Command.Item>
+                        </Link>
+                    </Command.Group>
+                    <Command.Group
+                        heading="Notes"
+                        className="text-sm text-stone-400 dark:text-stone-500 mb-3"
+                    >
+                        <Link href="/notes">
+                            <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 dark:text-white/80 hover:bg-stone-200 dark:hover:bg-white/10 rounded items-center gap-2">
+                                <FiLink />
+                                Community Notes
+                            </Command.Item>
+                           
+                        </Link>
+                        <Link href="/notes/ai">
+                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 dark:text-white/80 hover:bg-stone-200 dark:hover:bg-white/10 rounded items-center gap-2">
+                                <FiLink />
+                                Chat with AI
+                            </Command.Item>
+                            </Link>
+                    </Command.Group>
+                    <Command.Group
+                        heading="Resources"
+                        className="text-sm text-stone-400 dark:text-stone-500 mb-3"
+                    >
+                        <Link href="/resources">
+                            <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 dark:text-white/80 hover:bg-stone-200 dark:hover:bg-white/10 rounded items-center gap-2">
+                                <FiLink />
+                                Resources Page
                             </Command.Item>
                         </Link>
                     </Command.Group>
