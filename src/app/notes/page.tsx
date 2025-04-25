@@ -48,13 +48,13 @@ export default function NotesPage() {
         <div className='bg-white dark:bg-[#101935] rounded-lg shadow p-2 border border-stone-300 dark:border-white/10'>
             <div className="p-6">
                 <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold text-stone-900 dark:text-white">My Notes</h1>
+                    <h1 className="text-3xl font-bold text-stone-900 dark:text-white">Community Notes</h1>
                     <Link 
                         href="/notes/ai"
                         className="flex items-center gap-2 px-4 py-2 bg-stone-700 dark:bg-[#1E3A8A] text-white rounded-lg hover:bg-stone-800 dark:hover:bg-[#1E40AF] transition-colors"
                     >
                         <Plus size={20} />
-                        New Note with AI
+                        Chat with AI
                     </Link>
                 </div>
 
