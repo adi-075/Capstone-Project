@@ -31,10 +31,29 @@ export async function middleware(request: NextRequest) {
           })
         },
       },
+      auth: {
+        persistSession: false,
+        autoRefreshToken: true
+      }
     }
   )
 
-  await supabase.auth.getSession()
+  const { data: { session } } = await supabase.auth.getSession()
+  
+  const pathname = request.nextUrl.pathname
+  
+  const publicRoutes = ['/login', '/signup', '/auth/callback', '/404']
+  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
+  
+  if (!session && !isPublicRoute) {
+    const redirectUrl = new URL('/login', request.url)
+    return NextResponse.redirect(redirectUrl)
+  }
+  
+  if (session && (pathname.startsWith('/login') || pathname.startsWith('/signup'))) {
+    const redirectUrl = new URL('/', request.url)
+    return NextResponse.redirect(redirectUrl)
+  }
 
   return response
 }

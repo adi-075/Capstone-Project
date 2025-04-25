@@ -2,7 +2,7 @@
 
 import { createClient } from './supabase/client';
 
-const INACTIVITY_TIMEOUT = 1 * 60 * 1000; // 5 minutes in milliseconds
+const INACTIVITY_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
 let inactivityTimer: NodeJS.Timeout | null = null;
 
 export const setupAutoLogout = () => {
