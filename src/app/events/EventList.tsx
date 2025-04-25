@@ -35,6 +35,7 @@ const allowedTags = [
   "Student activities",
   "students",
   "tech",
+  "Highlights",
 ];
 
 const EventsList = () => {
