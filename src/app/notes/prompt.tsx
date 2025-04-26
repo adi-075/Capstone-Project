@@ -61,7 +61,11 @@ export function Prompt({ onSubmit, isLoading = false }: PromptProps) {
                                         : 'bg-stone-200 dark:bg-[#0F1F4A] text-stone-400 dark:text-stone-500'
                                 } transition-colors`}
                             >
-                                <FiSend className={`text-xl ${isLoading ? 'animate-spin' : ''}`} />
+                                {isLoading ? (
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                ) : (
+                                    <FiSend className="text-xl" />
+                                )}
                             </button>
                         </div>
                     </div>
