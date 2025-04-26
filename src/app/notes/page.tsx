@@ -95,7 +95,7 @@ export default function NotesPage() {
             {/* Header */}
             <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800">
                 <div className="flex items-center">
-                    <h1 className="text-xl font-bold text-gray-800 dark:text-white">Folders</h1>
+                    <h1 className="text-xl font-bold text-gray-800 dark:text-white">Community Notes</h1>
                 </div>
                 <div className="flex items-center space-x-3">
                     <button 
@@ -165,7 +165,7 @@ export default function NotesPage() {
                             <FolderIcon size={48} />
                         </div>
                         <p className="text-gray-500 dark:text-gray-400 text-center">
-                            No folders yet. Create your first folder!
+                            No Notes yet. You can see the notes from the community here once they have been uploaded!
                         </p>
                     </div>
                 )}
